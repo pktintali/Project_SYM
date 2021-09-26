@@ -14,7 +14,7 @@ on:
 jobs:
   flutter_test:
     name: Run flutter test analyze
-    runs-on: ubantu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@2
       - uses: actions/setup-java@1
