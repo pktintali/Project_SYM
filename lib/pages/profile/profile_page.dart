@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project_sym/components/miscard.dart';
 import 'package:project_sym/pages/profile/widgets/profile_about.dart';
+import 'package:project_sym/pages/profile/widgets/profile_achievments.dart';
 import 'package:project_sym/pages/profile/widgets/profile_followers.dart';
 import 'package:project_sym/pages/profile/widgets/profile_following.dart';
 import 'package:project_sym/pages/profile/widgets/profile_header.dart';
@@ -19,7 +21,7 @@ class ProfilePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: FractionalTranslation(
-              translation: const Offset(0, -0.25),
+              translation: const Offset(0, -0.037),
               child: Column(
                 children: [
                   Row(
@@ -37,9 +39,20 @@ class ProfilePage extends StatelessWidget {
                     ],
                   ),
                   const ProfileAbout(),
-                  const Divider()
+                  const ProfileAchievments(),
+                  const Divider(
+                    color: Colors.green,
+                  ),
+                  const Text('Shared Miscards'),
+                  const Divider(
+                    color: Colors.green,
+                  ),
+                  const Miscard(),
+                  const Miscard(),
+                  const Miscard(),
+                  const Miscard(),
+                  const Miscard(),
                 ],
-                
               ),
             ),
           ),
