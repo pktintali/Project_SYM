@@ -16,7 +16,7 @@ class ProfileFollowings extends StatelessWidget {
         Text(
           'Followings',
           style: TextStyle(
-            color: Colors.grey,
+            color: Colors.black87
           ),
         ),
       ],

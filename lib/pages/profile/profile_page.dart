@@ -14,49 +14,51 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const ProfileHeader(),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: FractionalTranslation(
-              translation: const Offset(0, -0.037),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const ProfileFollowers(),
-                      Column(
-                        children: const [
-                          ProfilePic(),
-                          ProfileName(),
-                          ProfileID(),
-                        ],
-                      ),
-                      const ProfileFollowings(),
-                    ],
-                  ),
-                  const ProfileAbout(),
-                  const ProfileAchievments(),
-                  const Divider(
-                    color: Colors.green,
-                  ),
-                  const Text('Shared Miscards'),
-                  const Divider(
-                    color: Colors.green,
-                  ),
-                  const Miscard(),
-                  const Miscard(),
-                  const Miscard(),
-                  const Miscard(),
-                  const Miscard(),
-                ],
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const ProfileHeader(),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: FractionalTranslation(
+                translation: const Offset(0, -0.037),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const ProfileFollowers(),
+                        Column(
+                          children: const [
+                            ProfilePic(),
+                            ProfileName(),
+                            ProfileID(),
+                          ],
+                        ),
+                        const ProfileFollowings(),
+                      ],
+                    ),
+                    const ProfileAbout(),
+                    const ProfileAchievments(),
+                    const Divider(
+                      color: Colors.green,
+                    ),
+                    const Text('Shared Miscards'),
+                    const Divider(
+                      color: Colors.green,
+                    ),
+                    const Miscard(),
+                    const Miscard(),
+                    const Miscard(),
+                    const Miscard(),
+                    const Miscard(),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

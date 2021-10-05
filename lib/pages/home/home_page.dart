@@ -7,17 +7,19 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: const [
-          HomeTopChips(),
-          Miscard(),
-          Miscard(),
-          Miscard(),
-          Miscard(),
-          Miscard(),
-          Miscard(),
-        ],
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          children: const [
+            HomeTopChips(),
+            Miscard(),
+            Miscard(),
+            Miscard(),
+            Miscard(),
+            Miscard(),
+            Miscard(),
+          ],
+        ),
       ),
     );
   }

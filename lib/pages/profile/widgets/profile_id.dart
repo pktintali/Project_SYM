@@ -7,10 +7,10 @@ class ProfileID extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {},
-      child: const Text(
+      child: Text(
         '@pradeep_tintali',
         style: TextStyle(
-          color: Colors.green,
+          color: Colors.blue[900],
         ),
       ),
     );

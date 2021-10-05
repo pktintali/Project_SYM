@@ -16,6 +16,7 @@ class HomeTopChips extends StatelessWidget {
           return  Padding(
             padding: const EdgeInsets.all(3.0),
             child: Chip(
+              backgroundColor: Colors.white,
               label: Text(Constants.categoryList[index]),
             ),
           );
