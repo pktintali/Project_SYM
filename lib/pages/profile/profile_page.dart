@@ -44,10 +44,10 @@ class ProfilePage extends StatelessWidget {
                     const Divider(
                       color: Colors.green,
                     ),
-                    const Text('Shared Miscards'),
-                    const Divider(
-                      color: Colors.green,
-                    ),
+                    // const Text('Shared Miscards'),
+                    // const Divider(
+                    //   color: Colors.green,
+                    // ),
                     const Miscard(),
                     const Miscard(),
                     const Miscard(),
