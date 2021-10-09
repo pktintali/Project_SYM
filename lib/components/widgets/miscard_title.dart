@@ -8,7 +8,7 @@ class MisCardTitle extends StatelessWidget {
     return const Text(
       'This is Title of Card',
       style: TextStyle(
-        fontSize: 17,
+        fontSize: 15,
         fontWeight: FontWeight.w600,
          color: Colors.green,
       ),

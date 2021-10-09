@@ -13,6 +13,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: Theme.of(context).copyWith(
+        scaffoldBackgroundColor: Colors.amber[100],
+        appBarTheme: AppBarTheme.of(context).copyWith(
+          backgroundColor: Colors.green[800],
+        ),
+      ),
       title: 'Project SYM',
       home: TabPage(),
     );

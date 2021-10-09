@@ -13,16 +13,16 @@ class Miscard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       // color: Colors.deepPurple[100],
-      child: Column(
-        children: [
-          TextButton(
-            onPressed: () {
-              Get.to(
-                () => const MisCardDetails(),
-                transition: Transition.zoom, 
-              );
-            },
-            child: Column(
+      child: TextButton(
+        onPressed: () {
+          Get.to(
+            () => const MisCardDetails(),
+            transition: Transition.zoom,
+          );
+        },
+        child: Column(
+          children: [
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 MisCardUserHeader(),
@@ -30,9 +30,9 @@ class Miscard extends StatelessWidget {
                 MisCardText(),
               ],
             ),
-          ),
-          const MisCardFooter(),
-        ],
+            const MisCardFooter(),
+          ],
+        ),
       ),
     );
   }

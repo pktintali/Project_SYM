@@ -1,7 +1,9 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_sym/components/widgets/miscard_title.dart';
 import 'package:project_sym/components/widgets/miscard_user_header.dart';
+import 'package:project_sym/controllers/flipcard_details_controller.dart';
 import 'package:project_sym/pages/miscard/miscard_comment.dart';
 import 'package:project_sym/pages/miscard/widgets/miscard_back.dart';
 import 'package:project_sym/pages/miscard/widgets/miscard_details_footer.dart';
@@ -13,17 +15,15 @@ class MisCardDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(FlipCardDetailsController());
     return Scaffold(
+      backgroundColor: Colors.amber[100],
       appBar: AppBar(
-        backgroundColor: Colors.green,
         title: const Text('Miscard'),
       ),
       bottomSheet: const SizedBox(
-        height: 68,
-        child: FractionalTranslation(
-          translation: Offset(0, 0.1),
-          child: MisCardDetailsIcons(),
-        ),
+        height: 49,
+        child: MisCardDetailsIcons(),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -31,24 +31,28 @@ class MisCardDetails extends StatelessWidget {
             padding: const EdgeInsets.all(5.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                MisCardUserHeader(),
-                MisCardTitle(),
+              children: [
+                const MisCardUserHeader(),
+                const MisCardTitle(),
                 FlipCard(
-                  front: MisCardFront(),
-                  back: MisCardBack(),
+                  onFlip: () async{
+                    await Future.delayed(const Duration(milliseconds: 400)).then((value) => controller.updateFront());  
+                  },
+                  controller: controller.fController,
+                  front: const MisCardFront(),
+                  back: const MisCardBack(),
                 ),
                 MisCardDetailsFooter(),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text('Comments'),
                 ),
-                Divider(),
-                MisCardcomment(),
-                MisCardcomment(),
-                MisCardcomment(),
-                MisCardcomment(),
-                SizedBox(height: 70),
+                const Divider(),
+                const MisCardcomment(),
+                const MisCardcomment(),
+                const MisCardcomment(),
+                const MisCardcomment(),
+                const SizedBox(height: 70),
               ],
             ),
           ),

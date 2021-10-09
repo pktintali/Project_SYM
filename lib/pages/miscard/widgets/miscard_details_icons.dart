@@ -8,9 +8,16 @@ class MisCardDetailsIcons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: const [
-        Divider(),
-        MisCardFooter(),
-        Divider(),
+        Divider(
+          height: 0.0,
+        ),
+        Padding(
+          padding: EdgeInsets.all(6.0),
+          child: MisCardFooter(fromDetail: true,),
+        ),
+        Divider(
+          height: 0.0,
+        ),
       ],
     );
   }

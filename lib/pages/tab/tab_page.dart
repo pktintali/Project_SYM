@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:project_sym/controllers/tab_controller.dart';
 import 'package:project_sym/pages/home/home_page.dart';
 import 'package:project_sym/pages/library/library_page.dart';
+import 'package:project_sym/pages/miscard/miscard_adding_page.dart';
 import 'package:project_sym/pages/profile/profile_page.dart';
 import 'package:project_sym/pages/trending/trending_page.dart';
 
@@ -19,11 +20,16 @@ class TabPage extends StatelessWidget {
           // floatingActionButtonLocation:FloatingActionButtonLocation.miniCenterDocked,
           floatingActionButton: FloatingActionButton(
             mini: true,
-            backgroundColor:Colors.green,
-            onPressed: () {},
+            backgroundColor: Colors.green,
+            onPressed: () {
+              Get.to(
+                () => const MisCardAddingPage(),
+                transition: Transition.downToUp,
+              );
+            },
             child: const Icon(Icons.add),
           ),
-          backgroundColor: Colors.deepPurple[100],
+          // backgroundColor: Colors.amber[100],
           body: _getTab(controller.getTab),
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,

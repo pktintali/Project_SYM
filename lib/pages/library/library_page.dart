@@ -21,7 +21,14 @@ class LibraryPage extends StatelessWidget {
               onTap: () {},
               title: const Text('Saved Miscards'),
             ),
-          )
+          ),
+          Card(
+            child: ListTile(
+              leading: const Icon(Icons.history),
+              onTap: () {},
+              title: const Text('Drafts'),
+            ),
+          ),
         ],
       ),
     );

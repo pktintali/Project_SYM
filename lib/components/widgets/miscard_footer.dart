@@ -1,57 +1,90 @@
 import 'package:flutter/material.dart';
 
 class MisCardFooter extends StatelessWidget {
-  const MisCardFooter({Key? key}) : super(key: key);
+  final bool fromDetail;
+  const MisCardFooter({this.fromDetail = false, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final double iconSize = fromDetail ? 20 : 16;
+    final double fontSize = fromDetail ? 16 : 13;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
-            children: const [
-              Icon(
-                Icons.thumb_up_alt_outlined,
-                size: 20,
-                color: Colors.black54,
+            children: [
+              InkWell(
+                onTap: () {},
+                child: Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Icon(
+                    Icons.thumb_up_alt_outlined,
+                    size: iconSize,
+                    color: Colors.black54,
+                  ),
+                ),
               ),
-              SizedBox(width: 4),
+              // const SizedBox(width: 4),
               Text(
                 '190',
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: fontSize,
+                ),
               ),
             ],
           ),
-          const Icon(
-            Icons.thumb_down_alt_outlined,
-            size: 20,
-            color: Colors.black54,
-          ),
-          Row(
-            children: const [
-              Icon(
-                Icons.comment,
-                size: 20,
+          InkWell(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Icon(
+                Icons.thumb_down_alt_outlined,
+                size: iconSize,
                 color: Colors.black54,
               ),
-              SizedBox(width: 4),
+            ),
+          ),
+          Row(
+            children: [
+              Icon(
+                Icons.comment,
+                size: iconSize,
+                color: Colors.black54,
+              ),
+              const SizedBox(width: 4),
               Text(
                 '80',
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: fontSize,
+                ),
               ),
             ],
           ),
-          const Icon(
-            Icons.share,
-            size: 20,
-            color: Colors.black54,
+          InkWell(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Icon(
+                Icons.share,
+                size: iconSize,
+                color: Colors.black54,
+              ),
+            ),
           ),
-          const Icon(
-            Icons.bookmark_add_outlined,
-            size: 20,
-            color: Colors.black54,
+          InkWell(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Icon(
+                Icons.bookmark_add_outlined,
+                size: iconSize,
+                color: Colors.black54,
+              ),
+            ),
           ),
         ],
       ),
