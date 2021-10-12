@@ -5,6 +5,7 @@ import 'package:project_sym/components/widgets/miscard_title.dart';
 import 'package:project_sym/components/widgets/miscard_user_header.dart';
 import 'package:project_sym/controllers/flipcard_details_controller.dart';
 import 'package:project_sym/pages/miscard/miscard_comment.dart';
+import 'package:project_sym/pages/miscard/miscard_comment_writebox.dart';
 import 'package:project_sym/pages/miscard/widgets/miscard_back.dart';
 import 'package:project_sym/pages/miscard/widgets/miscard_details_footer.dart';
 import 'package:project_sym/pages/miscard/widgets/miscard_details_icons.dart';
@@ -47,6 +48,8 @@ class MisCardDetails extends StatelessWidget {
                   padding: EdgeInsets.all(8.0),
                   child: Text('Comments'),
                 ),
+                const Divider(),
+                const MisCardCommentWriteBox(),
                 const Divider(),
                 const MisCardcomment(),
                 const MisCardcomment(),

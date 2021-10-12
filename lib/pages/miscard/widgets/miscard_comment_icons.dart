@@ -7,27 +7,36 @@ class MisCardCommentIcons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
-      child: Row(
+      child: Column(
         children: [
           Row(
-            children: const [
-              Icon(
-                Icons.thumb_up_alt_outlined,
+            children: [
+              Row(
+                children: const [
+                  Icon(
+                    Icons.thumb_up_alt_outlined,
+                    size: 16,
+                    color: Colors.black54,
+                  ),
+                  SizedBox(width: 4),
+                  Text(
+                    '190',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              const Icon(
+                Icons.thumb_down_alt_outlined,
                 size: 16,
                 color: Colors.black54,
               ),
-              SizedBox(width: 4),
-              Text(
-                '190',
-                style: TextStyle(color: Colors.grey),
-              ),
             ],
-          ),
-          const SizedBox(width: 10,),
-          const Icon(
-            Icons.thumb_down_alt_outlined,
-            size: 16,
-            color: Colors.black54,
           ),
         ],
       ),

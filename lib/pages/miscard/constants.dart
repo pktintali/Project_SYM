@@ -10,4 +10,8 @@ class Constants {
   An next week se kya karana hai kuchh
   pata hai to batana.
   """;
+
+  static const fakeComment = """
+  This is a sample comment. Comments are very creative.
+  """;
 }
