@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_sym/components/widgets/miscard_user_header.dart';
 import 'package:project_sym/pages/miscard/constants.dart';
 import 'package:project_sym/pages/miscard/widgets/miscard_comment_icons.dart';
 
@@ -41,7 +40,7 @@ class MisCardcomment extends StatelessWidget {
                     )
                   ],
                 ),
-                Text('Hello World How are You ?'),
+                const Text('Hello world how are you ?'),
                 const MisCardCommentIcons(),
               ],
             ),

@@ -39,7 +39,7 @@ class MisCardFront extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(5.0),
                       child: Text(
-                        'Misatke',
+                        'Mistake',
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,
