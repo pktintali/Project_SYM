@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:project_sym/pages/library/drafts_miscard.dart';
+import 'package:project_sym/pages/library/liked_miscard.dart';
+import 'package:project_sym/pages/library/saved_miscard.dart';
 
 class LibraryPage extends StatelessWidget {
   const LibraryPage({Key? key}) : super(key: key);
@@ -11,21 +15,27 @@ class LibraryPage extends StatelessWidget {
           Card(
             child: ListTile(
               leading: const Icon(Icons.thumb_up_sharp),
-              onTap: () {},
+              onTap: () {
+                Get.to(() => const LikedMisCard());
+              },
               title: const Text('Liked Miscards'),
             ),
           ),
           Card(
             child: ListTile(
               leading: const Icon(Icons.bookmarks),
-              onTap: () {},
+              onTap: () {
+                Get.to(() => const SavedMisCard());
+              },
               title: const Text('Saved Miscards'),
             ),
           ),
           Card(
             child: ListTile(
               leading: const Icon(Icons.history),
-              onTap: () {},
+              onTap: () {
+                Get.to(() => const DraftMisCard());
+              },
               title: const Text('Drafts'),
             ),
           ),

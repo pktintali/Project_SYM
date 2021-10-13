@@ -6,12 +6,22 @@ class ProfileName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      'Pradeep Kumar',
-      style: TextStyle(
-        fontSize: 21,
-        fontWeight: FontWeight.w600,
-      ),
+    return Row(
+      children: [
+        const Text(
+          'Pradeep Kumar',
+          style: TextStyle(
+            fontSize: 21,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(width: 3),
+        Icon(
+          Icons.verified,
+          size: 20,
+          color: Colors.green[800],
+        )
+      ],
     );
   }
 }

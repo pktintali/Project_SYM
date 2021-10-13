@@ -11,7 +11,10 @@ class HomePage extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: const [
-            HomeTopChips(),
+            Padding(
+              padding: EdgeInsets.only(top: 4),
+              child: HomeTopChips(),
+            ),
             Miscard(),
             Miscard(),
             Miscard(),
