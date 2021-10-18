@@ -17,16 +17,12 @@ class HomeTopChips extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.all(3.0),
-            child: InkWell(
-              onTap: () {
+            child: ActionChip(
+              backgroundColor: Colors.white,
+              label: Text(Constants.categoryList[index]),
+              onPressed: () {
                 Get.to(() => const CategoryView());
               },
-              borderRadius: BorderRadius.circular(50),
-              splashColor: Colors.black,
-              child: Chip(
-                backgroundColor: Colors.white,
-                label: Text(Constants.categoryList[index]),
-              ),
             ),
           );
         },

@@ -40,7 +40,16 @@ class MisCardcomment extends StatelessWidget {
                     )
                   ],
                 ),
-                const Text('Hello world how are you ?'),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 55,
+                  child: const Center(
+                    child: Text(
+                      Constants.fakeComment,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ),
                 const MisCardCommentIcons(),
               ],
             ),
