@@ -1,15 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:project_sym/pages/profile/constants.dart';
+import 'package:project_sym/pages/profile/edit_profile.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      Constants.headerURL,
-      fit: BoxFit.fitWidth,
-      scale: 1 / 2,
+    return Stack(
+      children: [
+        Image.network(
+          Constants.headerURL,
+          fit: BoxFit.fitWidth,
+          scale: 1 / 2,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const SizedBox(),
+            FloatingActionButton(
+              mini: true,
+              elevation: 0.5,
+              backgroundColor: const Color(0xa0888888),
+              onPressed: () {
+                showMenu(
+                  context: context,
+                  position: const RelativeRect.fromLTRB(1, 0, 0, 0),
+                  items: [
+                    PopupMenuItem(
+                      enabled: true,
+                      child: const Text('Edit Profile'),
+                      onTap: () {
+                        Get.to(() => const EditProfile());
+                      },
+                    ),
+                    const PopupMenuItem(
+                      child: Text('Settings'),
+                    ),
+                  ],
+                );
+              },
+              child: const Icon(
+                Icons.more_vert,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

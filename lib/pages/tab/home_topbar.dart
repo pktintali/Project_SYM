@@ -16,12 +16,10 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
         SizedBox(width: 4),
         Icon(Icons.notifications),
         SizedBox(width: 4),
-        Icon(Icons.settings),
-        SizedBox(width: 4),
       ],
     );
   }
 
   @override
-  Size get preferredSize => const Size.square(40);
+  Size get preferredSize => const Size.square(45);
 }
