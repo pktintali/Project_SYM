@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MisCardCommentIcons extends StatelessWidget {
-  const MisCardCommentIcons({Key? key}) : super(key: key);
+  final int? likesCount;
+  const MisCardCommentIcons({Key? key, this.likesCount}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,16 +13,16 @@ class MisCardCommentIcons extends StatelessWidget {
           Row(
             children: [
               Row(
-                children: const [
-                  Icon(
+                children: [
+                  const Icon(
                     Icons.thumb_up_alt_outlined,
                     size: 16,
                     color: Colors.black54,
                   ),
-                  SizedBox(width: 4),
+                  const SizedBox(width: 4),
                   Text(
-                    '190',
-                    style: TextStyle(
+                    '$likesCount',
+                    style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 13,
                     ),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:project_sym/pages/welcome/welcome.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:project_sym/pages/tab/tab_page.dart';
+import 'package:project_sym/pages/welcome/welcome_page.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -11,6 +14,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tokenBox = GetStorage();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: Theme.of(context).copyWith(
@@ -20,7 +24,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       title: 'Project SYM',
-      home: const Welcome(),
+      home: tokenBox.read('token') == null ? const WelcomePage() : TabPage(),
     );
   }
 }

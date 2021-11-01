@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:project_sym/components/widgets/miscard_footer.dart';
+import 'package:project_sym/models/miscard.dart';
 
 class MisCardDetailsIcons extends StatelessWidget {
-  const MisCardDetailsIcons({Key? key}) : super(key: key);
+  final MisCard miscard;
+  final int? commentsCount;
+  const MisCardDetailsIcons({Key? key, required this.miscard, this.commentsCount})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
-        Divider(
+      children: [
+        const Divider(
           height: 0.0,
         ),
         Padding(
-          padding: EdgeInsets.all(6.0),
-          child: MisCardFooter(fromDetail: true,),
+          padding: const EdgeInsets.all(6.0),
+          child: MisCardFooter(
+            fromDetail: true,
+            miscard: miscard,
+            commentsCount: commentsCount,
+          ),
         ),
-        Divider(
+        const Divider(
           height: 0.0,
         ),
       ],

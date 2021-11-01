@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_sym/components/miscard.dart';
+import 'package:project_sym/components/miscard_widget.dart';
 import 'package:project_sym/pages/profile/widgets/profile_about.dart';
 import 'package:project_sym/pages/profile/widgets/profile_achievments.dart';
 import 'package:project_sym/pages/profile/widgets/profile_followers.dart';
@@ -48,11 +48,11 @@ class ProfilePage extends StatelessWidget {
                     // const Divider(
                     //   color: Colors.green,
                     // ),
-                    const Miscard(),
-                    const Miscard(),
-                    const Miscard(),
-                    const Miscard(),
-                    const Miscard(),
+                    // const MisCardWidget(),
+                    // const MisCardWidget(),
+                    // const MisCardWidget(),
+                    // const MisCardWidget(),
+                    // const MisCardWidget(),
                   ],
                 ),
               ),

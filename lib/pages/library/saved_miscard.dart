@@ -7,6 +7,14 @@ class SavedMisCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () async {
+            
+          },
+          child: const Text('POST'),
+        ),
+      ),
     );
   }
 }

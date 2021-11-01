@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project_sym/pages/miscard/constants.dart';
 
 class MisCardBack extends StatelessWidget {
-  const MisCardBack({Key? key}) : super(key: key);
+  final String lesson;
+  const MisCardBack({Key? key, required this.lesson}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +56,10 @@ class MisCardBack extends StatelessWidget {
                   color: Colors.green,
                   height: 0.0,
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-                  child: Text(Constants.miscardDetails),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                  child: Text(lesson),
                 ),
               ],
             ),

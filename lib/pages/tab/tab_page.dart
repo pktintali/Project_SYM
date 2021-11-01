@@ -67,12 +67,12 @@ class TabPage extends StatelessWidget {
 
   Widget _getTab(int index) {
     if (index == 1) {
-      return const TrendingPage();
+      return TrendingPage();
     } else if (index == 2) {
-      return const LibraryPage();
+      return LibraryPage();
     } else if (index == 3) {
       return const ProfilePage();
     }
-    return const HomePage();
+    return HomePage();
   }
 }

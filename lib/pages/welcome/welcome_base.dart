@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
-import 'package:project_sym/pages/tab/tab_page.dart';
 import 'package:project_sym/pages/welcome/widgets/corner_decorated_box.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({Key? key}) : super(key: key);
+
+  Widget getWidget(BuildContext context){
+    return const Center();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,36 +49,7 @@ class Welcome extends StatelessWidget {
                 ),
               ],
             ),
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Sign In With Google'),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Sign In With Email'),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.to(() => TabPage());
-                      },
-                      child: const Text('Skip'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            getWidget(context),
           ],
         ),
       ),

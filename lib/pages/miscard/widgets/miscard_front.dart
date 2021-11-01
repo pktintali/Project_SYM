@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project_sym/pages/miscard/constants.dart';
 
 class MisCardFront extends StatelessWidget {
-  const MisCardFront({Key? key}) : super(key: key);
+  final String mistake;
+  const MisCardFront({Key? key, required this.mistake}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,8 @@ class MisCardFront extends StatelessWidget {
       child: SizedBox(
         width: _mdq.width < 500 ? _mdq.width * 0.9 : _mdq.width * 0.5,
         child: Padding(
-          padding: const EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 0.0),
+          padding:
+              const EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 0.0),
           child: DecoratedBox(
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -56,9 +57,9 @@ class MisCardFront extends StatelessWidget {
                 //   color: Colors.deepOrange,
                 //   height: 0.0,
                 // ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-                  child: Text(Constants.miscardDetails),
+                Padding(
+                  padding:const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                  child: Text(mistake),
                 ),
               ],
             ),

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:project_sym/pages/library/drafts_miscard.dart';
 import 'package:project_sym/pages/library/liked_miscard.dart';
 import 'package:project_sym/pages/library/saved_miscard.dart';
+import 'package:project_sym/pages/welcome/welcome_page.dart';
 
 class LibraryPage extends StatelessWidget {
-  const LibraryPage({Key? key}) : super(key: key);
+  LibraryPage({Key? key}) : super(key: key);
+  final tokenBox = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class LibraryPage extends StatelessWidget {
             child: ListTile(
               leading: const Icon(Icons.thumb_up_sharp),
               onTap: () {
-                Get.to(() => const LikedMisCard());
+                Get.to(() => LikedMisCard());
               },
               title: const Text('Liked Miscards'),
             ),
@@ -37,6 +40,18 @@ class LibraryPage extends StatelessWidget {
                 Get.to(() => const DraftMisCard());
               },
               title: const Text('Drafts'),
+            ),
+          ),
+          Card(
+            child: ListTile(
+              leading: const Icon(Icons.logout),
+              onTap: () async {
+                await tokenBox.remove('token');
+                await tokenBox.remove('userID');
+                await Get.delete();
+                Get.off(() => const WelcomePage());
+              },
+              title: const Text('LogOut'),
             ),
           ),
         ],

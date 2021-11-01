@@ -8,8 +8,6 @@ class MisCardDetailsFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO Show it only first time for user
-    // ctrl.fController.hint(duration: const Duration(milliseconds: 800));
     return GetBuilder<FlipCardDetailsController>(builder: (_) {
       return Center(
         child: ElevatedButton(

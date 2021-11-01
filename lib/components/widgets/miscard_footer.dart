@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:project_sym/models/miscard.dart';
 
 class MisCardFooter extends StatelessWidget {
   final bool fromDetail;
-  const MisCardFooter({this.fromDetail = false, Key? key}) : super(key: key);
+  final MisCard miscard;
+  final int? commentsCount;
+  const MisCardFooter(
+      {this.fromDetail = false, Key? key, required this.miscard, this.commentsCount})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final double iconSize = fromDetail ? 20 : 16;
     final double fontSize = fromDetail ? 16 : 13;
+    bool likedByUser = miscard.isLiked ?? false;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
       child: Row(
@@ -20,15 +27,16 @@ class MisCardFooter extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(3.0),
                   child: Icon(
-                    Icons.thumb_up_alt_outlined,
+                    likedByUser ? Icons.thumb_up : Icons.thumb_up_alt_outlined,
                     size: iconSize,
-                    color: Colors.black54,
+                    // color: Colors.black54,
+                    color: likedByUser ? Colors.green : Colors.black54,
                   ),
                 ),
               ),
               // const SizedBox(width: 4),
               Text(
-                '190',
+                '${miscard.likesCount ?? ''}',
                 style: TextStyle(
                   color: Colors.grey,
                   fontSize: fontSize,
@@ -56,7 +64,7 @@ class MisCardFooter extends StatelessWidget {
               ),
               const SizedBox(width: 4),
               Text(
-                '80',
+                fromDetail ? '$commentsCount' : '',
                 style: TextStyle(
                   color: Colors.grey,
                   fontSize: fontSize,

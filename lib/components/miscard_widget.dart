@@ -4,10 +4,12 @@ import 'package:project_sym/components/widgets/miscard_footer.dart';
 import 'package:project_sym/components/widgets/miscard_text.dart';
 import 'package:project_sym/components/widgets/miscard_title.dart';
 import 'package:project_sym/components/widgets/miscard_user_header.dart';
+import 'package:project_sym/models/miscard.dart';
 import 'package:project_sym/pages/miscard/miscard_details.dart';
 
-class Miscard extends StatelessWidget {
-  const Miscard({Key? key}) : super(key: key);
+class MisCardWidget extends StatelessWidget {
+  final MisCard miscard;
+  const MisCardWidget({Key? key, required this.miscard}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class Miscard extends StatelessWidget {
       child: TextButton(
         onPressed: () {
           Get.to(
-            () => const MisCardDetails(),
+            () => MisCardDetails(miscard: miscard),
             transition: Transition.zoom,
           );
         },
@@ -24,13 +26,13 @@ class Miscard extends StatelessWidget {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                MisCardUserHeader(),
-                MisCardTitle(),
-                MisCardText(),
+              children: [
+                MisCardUserHeader(user: miscard.user,timeStamp: miscard.timestamp),
+                MisCardTitle(title: miscard.title),
+                MisCardText(description: miscard.mistake),
               ],
             ),
-            const MisCardFooter(),
+            MisCardFooter(miscard: miscard,),
           ],
         ),
       ),

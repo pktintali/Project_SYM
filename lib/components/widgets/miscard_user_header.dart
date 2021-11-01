@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:project_sym/models/user.dart';
 
 class MisCardUserHeader extends StatelessWidget {
-  const MisCardUserHeader({Key? key}) : super(key: key);
+  final String timeStamp;
+  final User user;
+  const MisCardUserHeader({Key? key, required this.timeStamp, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Row(
-        children: const [
-          CircleAvatar(
+        children: [
+          const CircleAvatar(
             backgroundColor: Colors.greenAccent,
             radius: 18,
             child: Icon(
@@ -17,19 +20,19 @@ class MisCardUserHeader extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Text(
-            'Pradeep Kumar',
-            style: TextStyle(
+            '${user.firstName??''} ${user.lastName??''}',
+            style: const TextStyle(
               color: Colors.black,
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Text(
-            '12:36 PM 12/07/2021',
-            style: TextStyle(
+            timeStamp,
+            style: const TextStyle(
               fontSize: 10,
             ),
           )

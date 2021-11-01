@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:project_sym/pages/miscard/constants.dart';
+import 'package:project_sym/models/comment.dart';
 import 'package:project_sym/pages/miscard/widgets/miscard_comment_icons.dart';
 
 class MisCardcomment extends StatelessWidget {
-  const MisCardcomment({Key? key}) : super(key: key);
+  final Comment comment;
+  const MisCardcomment({Key? key, required this.comment}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +26,15 @@ class MisCardcomment extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  children: const [
+                  children:[
                     Text(
-                      'Pradeep Kumar',
-                      style: TextStyle(color: Colors.grey),
+                      '${comment.user.firstName} ${comment.user.lastName}',
+                      style: const TextStyle(color: Colors.grey),
                     ),
-                    Text(' - '),
+                    const Text(' - '),
                     Text(
-                      '2 minutes ago',
-                      style: TextStyle(
+                      comment.timeStamp,
+                      style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 13,
                       ),
@@ -42,15 +43,14 @@ class MisCardcomment extends StatelessWidget {
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width - 55,
-                  child: const Center(
-                    child: Text(
-                      Constants.fakeComment,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                  child: Text(
+                    comment.description,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    // textAlign: TextAlign.left,
                   ),
                 ),
-                const MisCardCommentIcons(),
+                MisCardCommentIcons(likesCount: comment.likesCount,),
               ],
             ),
           ],

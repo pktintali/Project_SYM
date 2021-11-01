@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_sym/components/miscard.dart';
+import 'package:project_sym/components/miscard_widget.dart';
 
 class CategoryView extends StatelessWidget {
   const CategoryView({Key? key}) : super(key: key);
@@ -14,10 +14,10 @@ class CategoryView extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: const [
-              Miscard(),
-              Miscard(),
-              Miscard(),
-              Miscard(),
+              // MisCardWidget(),
+              // MisCardWidget(),
+              // MisCardWidget(),
+              // MisCardWidget(),
             ],
           ),
         ),
