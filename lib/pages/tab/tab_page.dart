@@ -25,7 +25,7 @@ class TabPage extends StatelessWidget {
             backgroundColor: Colors.green,
             onPressed: () {
               Get.to(
-                () => const MisCardAddingPage(),
+                () => MisCardAddingPage(),
                 transition: Transition.downToUp,
               );
             },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_sym/components/widgets/miscard_footer.dart';
 import 'package:project_sym/models/miscard.dart';
+import 'package:project_sym/pages/miscard/widgets/miscard_details_footer_icons.dart';
 
 class MisCardDetailsIcons extends StatelessWidget {
   final MisCard miscard;
@@ -17,8 +17,7 @@ class MisCardDetailsIcons extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(6.0),
-          child: MisCardFooter(
-            fromDetail: true,
+          child: MisCardDetailsFooterIcons(
             miscard: miscard,
             commentsCount: commentsCount,
           ),

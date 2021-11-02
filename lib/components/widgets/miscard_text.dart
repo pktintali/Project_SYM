@@ -7,7 +7,7 @@ class MisCardText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Text(
         description,
         style: const TextStyle(color: Colors.black),

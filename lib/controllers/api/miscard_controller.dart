@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_storage/get_storage.dart';
+import 'package:project_sym/controllers/api/base_route.dart';
 import 'package:project_sym/models/miscard.dart';
 
 class MisCardController extends GetxController {
@@ -13,28 +14,9 @@ class MisCardController extends GetxController {
   var token = _tokenBox.read('token');
   var currentUserID = _tokenBox.read('userID');
 
-  Future<bool> isLiked(int miscardID) async {
-    var url = Uri.parse(
-        'http://127.0.0.1:8000/api/likes/?user_id=$currentUserID&miscard_id=$miscardID');
-    try {
-      http.Response response =
-          await http.get(url, headers: {'Authorization': "token $token"});
-      var data = json.decode(response.body);
-      // print(data);
-      if (data['count'] == 1) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
-
   Future<bool> getMisCards() async {
     var url =
-        Uri.parse('http://127.0.0.1:8000/api/miscards/?ordering=-created_at');
+        Uri.parse('${BaseRoute.domain}/api/miscards/?ordering=-created_at');
 
     try {
       http.Response response =
@@ -44,19 +26,10 @@ class MisCardController extends GetxController {
       data = data['results'] as List;
       // print(data);
       List<MisCard> temp = [];
-      List elements = [];
       data.forEach((element) {
-        elements.add(element);
+        MisCard mc = MisCard.fromMap(element);
+        temp.add(mc);
       });
-      Future<void> fillArray(List datas) async {
-        for (var element in datas) {
-          bool likedByUser = await isLiked(element['id']);
-          MisCard mc = MisCard.fromMap(element, likedByUser: likedByUser);
-          temp.add(mc);
-        }
-      }
-
-      await fillArray(elements);
       // print(temp);
       _miscards = temp;
       // update();
@@ -70,7 +43,7 @@ class MisCardController extends GetxController {
 
   Future<bool> getTrendingMisCards() async {
     var url = Uri.parse(
-        'http://127.0.0.1:8000/api/miscards/?ordering=-likes_count,-created_at');
+        '${BaseRoute.domain}/api/miscards/?ordering=-likes_count,-created_at');
 
     try {
       http.Response response =
@@ -97,7 +70,7 @@ class MisCardController extends GetxController {
   Future<bool> getLikedMisCards() async {
     print(currentUserID);
     var url = Uri.parse(
-        'http://127.0.0.1:8000/api/likes/?ordering=-liked_at&user_id=$currentUserID');
+        '${BaseRoute.domain}/api/likes/?ordering=-liked_at&user_id=$currentUserID');
     try {
       http.Response response =
           await http.get(url, headers: {'Authorization': "token $token"});

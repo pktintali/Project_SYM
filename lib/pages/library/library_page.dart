@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:project_sym/controllers/api/miscard_controller.dart';
 import 'package:project_sym/pages/library/drafts_miscard.dart';
 import 'package:project_sym/pages/library/liked_miscard.dart';
 import 'package:project_sym/pages/library/saved_miscard.dart';
@@ -48,7 +49,8 @@ class LibraryPage extends StatelessWidget {
               onTap: () async {
                 await tokenBox.remove('token');
                 await tokenBox.remove('userID');
-                await Get.delete();
+                await Get.delete<TabController>();
+                await Get.delete<MisCardController>();
                 Get.off(() => const WelcomePage());
               },
               title: const Text('LogOut'),

@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:project_sym/controllers/api/base_route.dart';
 
 class AuthController extends GetxController {
   final tokenBox = GetStorage();
 
   Future<int> getUserID(String token) async {
-    var url = Uri.parse('http://127.0.0.1:8000/api/currentuser/');
+    var url = Uri.parse('${BaseRoute.domain}/api/currentuser/');
     try {
       http.Response response =
           await http.get(url, headers: {'Authorization': "token $token"});
@@ -22,7 +23,7 @@ class AuthController extends GetxController {
   }
 
   Future<bool> loginNow(String? uname, String? passw) async {
-    var url = Uri.parse('http://127.0.0.1:8000/api/login/');
+    var url = Uri.parse('${BaseRoute.domain}/api/login/');
     try {
       http.Response response = await http.post(url,
           headers: {
@@ -49,7 +50,7 @@ class AuthController extends GetxController {
   }
 
   Future<bool> registernow(String? uname, String? passw, String? email) async {
-    var url = Uri.parse('http://127.0.0.1:8000/api/register/');
+    var url = Uri.parse('${BaseRoute.domain}/api/register/');
     try {
       http.Response response = await http.post(url,
           headers: {

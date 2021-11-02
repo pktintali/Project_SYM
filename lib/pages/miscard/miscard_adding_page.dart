@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_sym/controllers/api/miscard_create_controller.dart';
 
 class MisCardAddingPage extends StatelessWidget {
-  const MisCardAddingPage({Key? key}) : super(key: key);
-
+  MisCardAddingPage({Key? key}) : super(key: key);
+  final controller = Get.put(MisCardCreateController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,107 +22,125 @@ class MisCardAddingPage extends StatelessWidget {
                   padding: EdgeInsets.all(4.0),
                   child: Text('Title'),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 6),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
                   child: TextField(
-                      decoration: InputDecoration(
-                    // contentPadding: EdgeInsets.all(0.0),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.green,
+                    decoration: const InputDecoration(
+                      // contentPadding: EdgeInsets.all(0.0),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.green,
+                        ),
                       ),
-                    ),
-                    border: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.green,
+                      border: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.green,
+                        ),
                       ),
+                      filled: true,
+                      fillColor: Colors.white,
                     ),
-                    filled: true,
-
-                    fillColor: Colors.white,
-                  )),
+                    onChanged: (v) {
+                      controller.setTitle = v;
+                    },
+                  ),
                 ),
                 const SizedBox(height: 10),
                 const Padding(
                   padding: EdgeInsets.all(4.0),
                   child: Text('Mistake'),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 6),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
                   child: TextField(
-                      minLines: 5,
-                      maxLines: 10,
-                      decoration: InputDecoration(
-                        // contentPadding: EdgeInsets.all(0.0),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.green,
-                          ),
+                    minLines: 5,
+                    maxLines: 10,
+                    decoration: const InputDecoration(
+                      // contentPadding: EdgeInsets.all(0.0),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.green,
                         ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.green,
-                          ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.green,
                         ),
-                        filled: true,
-                        fillColor: Colors.white,
-                      )),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    onChanged: (v) {
+                      controller.setMistake = v;
+                    },
+                  ),
                 ),
                 const SizedBox(height: 10),
                 const Padding(
                   padding: EdgeInsets.all(4.0),
                   child: Text('Lesson'),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 6),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
                   child: TextField(
-                      minLines: 5,
-                      maxLines: 7,
-                      decoration: InputDecoration(
-                        // contentPadding: EdgeInsets.all(0.0),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.green,
-                          ),
+                    minLines: 5,
+                    maxLines: 7,
+                    decoration: const InputDecoration(
+                      // contentPadding: EdgeInsets.all(0.0),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.green,
                         ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.green,
-                          ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.green,
                         ),
-                        filled: true,
-                        fillColor: Colors.white,
-                      )),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    onChanged: (v) {
+                      controller.setLesson = v;
+                    },
+                  ),
                 ),
                 const SizedBox(height: 10),
-                DropdownButton(
-                  isExpanded: true,
-                  hint: const Text('Select Category'),
-                  onChanged: (v) {},
-                  items: [
-                    DropdownMenuItem(
-                      value: 1,
-                      onTap: () {},
-                      child: const Text('1'),
-                    ),
-                    DropdownMenuItem(
-                      value: 2,
-                      onTap: () {},
-                      child: const Text('2'),
-                    ),
-                    DropdownMenuItem(
-                      value: 3,
-                      onTap: () {},
-                      child: const Text('3'),
-                    ),
-                  ],
-                ),
+                // DropdownButton(
+                //   isExpanded: true,
+                //   hint: const Text('Select Category'),
+                //   onChanged: (v) {},
+                //   items: [
+                //     DropdownMenuItem(
+                //       value: 1,
+                //       onTap: () {},
+                //       child: const Text('1'),
+                //     ),
+                //     DropdownMenuItem(
+                //       value: 2,
+                //       onTap: () {},
+                //       child: const Text('2'),
+                //     ),
+                //     DropdownMenuItem(
+                //       value: 3,
+                //       onTap: () {},
+                //       child: const Text('3'),
+                //     ),
+                //   ],
+                // ),
                 Row(
                   children: [
-                    Checkbox(
-                      value: true,
-                      fillColor: MaterialStateProperty.all(Colors.green[800]),
-                      onChanged: (v) {},
+                    GetBuilder<MisCardCreateController>(
+                      builder: (_) {
+                        return Checkbox(
+                          value: controller.allowedComment,
+                          fillColor:
+                              MaterialStateProperty.all(Colors.green[800]),
+                          onChanged: (v) {
+                            controller.toogleAllowComment();
+                          },
+                        );
+                      },
                     ),
                     const Text('Allow Comments'),
                   ],
@@ -155,7 +175,27 @@ class MisCardAddingPage extends StatelessWidget {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        if (controller.title != '' &&
+                            controller.mistake != '' &&
+                            controller.lesson != '') {
+                          await controller
+                              .addMisCard(
+                                title: controller.title,
+                                mistake: controller.mistake,
+                                lesson: controller.lesson,
+                              )
+                              .then(
+                                (value) => Get.defaultDialog(
+                                  middleText: 'MisCard Created Successfully',
+                                  onConfirm: () {
+                                    Get.back();
+                                  },
+                                ),
+                              );
+                          Navigator.pop(context);
+                        }
+                      },
                       child: const Text('Publish'),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(

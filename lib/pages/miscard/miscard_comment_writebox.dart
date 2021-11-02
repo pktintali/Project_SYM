@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_sym/controllers/api/miscard_detail_controller.dart';
 
 class MisCardCommentWriteBox extends StatelessWidget {
-  const MisCardCommentWriteBox({Key? key}) : super(key: key);
+  final int miscardID;
+  MisCardCommentWriteBox({Key? key, required this.miscardID}) : super(key: key);
+  final MisCardDetailController mdc = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -18,25 +22,32 @@ class MisCardCommentWriteBox extends StatelessWidget {
         const SizedBox(width: 6),
         Expanded(
           child: TextField(
-            minLines: 1,
-            maxLines: 4,
-            decoration: InputDecoration(
-              hintText: 'Add a public comment...',
-              filled: true,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 15,
-                vertical: 5,
+              controller: mdc.commentBoxTextController,
+              minLines: 1,
+              maxLines: 4,
+              decoration: InputDecoration(
+                hintText: 'Add a public comment...',
+                filled: true,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 5,
+                ),
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide.none,
+                ),
               ),
-              fillColor: Colors.white,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide.none,
-              ),
-            ),
-          ),
+              onChanged: (v) {
+                mdc.commentBoxText = v;
+              }),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            if (mdc.commentBoxText != '') {
+              mdc.writeComment(miscardID: miscardID);
+            }
+          },
           icon: const Icon(
             Icons.send,
             color: Colors.green,

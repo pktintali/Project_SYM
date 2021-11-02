@@ -13,14 +13,24 @@ class MisCardcomment extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CircleAvatar(
-              backgroundColor: Colors.greenAccent,
-              radius: 17,
-              child: Icon(
-                Icons.person,
-                color: Colors.black,
-              ),
-            ),
+            CircleAvatar(
+            backgroundColor: Colors.green,
+            radius: 15,
+            child: comment.user.firstName == null
+                ? const Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 22,
+                  )
+                : Text(
+                    comment.user.firstName![0],
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+          ),
             const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
