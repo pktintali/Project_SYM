@@ -7,14 +7,42 @@ import 'package:project_sym/models/miscard.dart';
 
 class MisCardController extends GetxController {
   static final _tokenBox = GetStorage();
+  bool _fromLike = false;
+  bool _fromHome = false;
+  bool _fromTrending = false;
+  bool _fromSaved = false;
+
   List<MisCard> _miscards = [];
   List<MisCard> _trendingMiscards = [];
   List<MisCard> _likedMiscards = [];
+  List<MisCard> _savedMiscards = [];
+
+  bool get fromLike => _fromLike;
+  bool get fromHome => _fromHome;
+  bool get fromtrending => _fromTrending;
+  bool get fromSaved => _fromSaved;
 
   var token = _tokenBox.read('token');
   var currentUserID = _tokenBox.read('userID');
 
-  Future<bool> getMisCards() async {
+  List<MisCard> get miscards {
+    return [..._miscards];
+  }
+
+  List<MisCard> get trendingMiscards {
+    return [..._trendingMiscards];
+  }
+
+  List<MisCard> get likedMiscards {
+    return [..._likedMiscards];
+  }
+
+  List<MisCard> get savedMiscards {
+    return [..._savedMiscards];
+  }
+
+  Future<void> getMisCards() async {
+    print('Getting MisCards');
     var url =
         Uri.parse('${BaseRoute.domain}/api/miscards/?ordering=-created_at');
 
@@ -32,16 +60,20 @@ class MisCardController extends GetxController {
       });
       // print(temp);
       _miscards = temp;
-      // update();
-      return true;
+      update();
     } catch (e) {
       print("e getMiscards");
       print(e);
-      return false;
     }
+
+    _fromLike = false;
+    _fromHome = true;
+    _fromSaved = false;
+    _fromTrending = false;
   }
 
-  Future<bool> getTrendingMisCards() async {
+  Future<void> getTrendingMisCards() async {
+    print('Getting Trending MisCards');
     var url = Uri.parse(
         '${BaseRoute.domain}/api/miscards/?ordering=-likes_count,-created_at');
 
@@ -58,17 +90,19 @@ class MisCardController extends GetxController {
         temp.add(mc);
       });
       _trendingMiscards = temp;
-      // update();
-      return true;
+      update();
     } catch (e) {
       print("e get trending miscards");
       print(e);
-      return false;
     }
+    _fromLike = false;
+    _fromHome = false;
+    _fromSaved = false;
+    _fromTrending = true;
   }
 
-  Future<bool> getLikedMisCards() async {
-    print(currentUserID);
+  Future<void> getLikedMisCards() async {
+    print('Getting Liked MisCard');
     var url = Uri.parse(
         '${BaseRoute.domain}/api/likes/?ordering=-liked_at&user_id=$currentUserID');
     try {
@@ -84,24 +118,43 @@ class MisCardController extends GetxController {
         temp.add(mc);
       });
       _likedMiscards = temp;
-      // update();
-      return true;
+      update();
     } catch (e) {
       print("e get likes");
       print(e);
-      return false;
     }
+    _fromLike = true;
+    _fromHome = false;
+    _fromSaved = false;
+    _fromTrending = false;
   }
 
-  List<MisCard> get miscards {
-    return [..._miscards];
-  }
+  Future<void> getSavedMisCards() async {
+    print('Getting Saved MisCard');
+    var url = Uri.parse(
+        '${BaseRoute.domain}/api/saved_miscards/?user_id=$currentUserID');
+    try {
+      http.Response response =
+          await http.get(url, headers: {'Authorization': "token $token"});
+      // print(response.body);
+      var data = json.decode(response.body);
+      data = data['results'] as List;
+      // print(data);
+      List<MisCard> temp = [];
+      data.forEach((element) {
+        MisCard mc = MisCard.fromMap(element['miscard']);
+        temp.add(mc);
+      });
+      _savedMiscards = temp;
+      update();
+    } catch (e) {
+      print("e get likes");
+      print(e);
+    }
 
-  List<MisCard> get trendingMiscards {
-    return [..._trendingMiscards];
-  }
-
-  List<MisCard> get likedMiscards {
-    return [..._likedMiscards];
+    _fromLike = false;
+    _fromHome = false;
+    _fromSaved = true;
+    _fromTrending = false;
   }
 }

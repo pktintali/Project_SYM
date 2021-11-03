@@ -71,7 +71,7 @@ class TabPage extends StatelessWidget {
     } else if (index == 2) {
       return LibraryPage();
     } else if (index == 3) {
-      return const ProfilePage();
+      return ProfilePage();
     }
     return HomePage();
   }

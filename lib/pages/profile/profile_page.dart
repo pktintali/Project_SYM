@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_sym/components/miscard_widget.dart';
 import 'package:project_sym/pages/profile/widgets/profile_about.dart';
 import 'package:project_sym/pages/profile/widgets/profile_achievments.dart';
 import 'package:project_sym/pages/profile/widgets/profile_followers.dart';
@@ -15,50 +14,59 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const ProfileHeader(),
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: FractionalTranslation(
-                translation: const Offset(0, -0.037),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Column(
+                children: [
+                  const ProfileHeader(),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Column(
                       children: [
-                        const ProfileFollowers(),
-                        Column(
-                          children: const [
-                            ProfilePic(),
-                            ProfileName(),
-                            ProfileID(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const ProfileFollowers(),
+                            Column(
+                              children: const [
+                                SizedBox(height: 40),
+                                ProfileName(),
+                                ProfileID(),
+                              ],
+                            ),
+                            const ProfileFollowings(),
                           ],
                         ),
-                        const ProfileFollowings(),
+                        const ProfileAbout(),
+                        const ProfileAchievments(),
+                        const Divider(
+                          color: Colors.green,
+                        ),
+                        const Text('Shared Miscards'),
+                        const Divider(
+                          color: Colors.green,
+                        ),
+                        // const MisCardWidget(),
+                        // const MisCardWidget(),
+                        // const MisCardWidget(),
+                        // const MisCardWidget(),
+                        // const MisCardWidget(),
                       ],
                     ),
-                    const ProfileAbout(),
-                    const ProfileAchievments(),
-                    const Divider(
-                      color: Colors.green,
-                    ),
-                    // const Text('Shared Miscards'),
-                    // const Divider(
-                    //   color: Colors.green,
-                    // ),
-                    // const MisCardWidget(),
-                    // const MisCardWidget(),
-                    // const MisCardWidget(),
-                    // const MisCardWidget(),
-                    // const MisCardWidget(),
-                  ],
+                  ),
+                ],
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 65),
+                child: Center(
+                  child: ProfilePic(),
                 ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }

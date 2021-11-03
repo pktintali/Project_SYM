@@ -5,27 +5,28 @@ import 'package:project_sym/controllers/api/miscard_controller.dart';
 
 class TrendingPage extends StatelessWidget {
   TrendingPage({Key? key}) : super(key: key);
-  final controller = Get.put(MisCardController());
+  final MisCardController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: FutureBuilder(
-        future: controller.getTrendingMisCards(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done &&
-              snapshot.hasData) {
-            return ListView.builder(
-              itemCount: controller.trendingMiscards.length,
-              itemBuilder: (context, index) {
-                return MisCardWidget(
-                  miscard: controller.trendingMiscards[index],
-                );
-              },
+      child: GetBuilder<MisCardController>(
+        initState: (v) async {
+          await controller.getTrendingMisCards();
+        },
+        builder: (_) {
+          if (controller.trendingMiscards.isEmpty) {
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           }
-          return const Center(
-            child: CircularProgressIndicator(),
+          return ListView.builder(
+            itemCount: controller.trendingMiscards.length,
+            itemBuilder: (context, index) {
+              return MisCardWidget(
+                miscard: controller.trendingMiscards[index],
+              );
+            },
           );
         },
       ),

@@ -10,28 +10,29 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: FutureBuilder(
-        future: controller.getMisCards(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done &&
-              snapshot.hasData) {
-            return ListView.builder(
-              itemCount: controller.miscards.length + 1,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return const Padding(
-                    padding: EdgeInsets.only(top: 4),
-                    child: HomeTopChips(),
-                  );
-                }
-                return MisCardWidget(
-                  miscard: controller.miscards[index - 1],
-                );
-              },
+      child: GetBuilder<MisCardController>(
+        initState: (v) async {
+          await controller.getMisCards();
+        },
+        builder: (_) {
+          if (controller.miscards.isEmpty) {
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           }
-          return const Center(
-            child: CircularProgressIndicator(),
+          return ListView.builder(
+            itemCount: controller.miscards.length + 1,
+            itemBuilder: (context, index) {
+              if (index == 0) {
+                return const Padding(
+                  padding: EdgeInsets.only(top: 4),
+                  child: HomeTopChips(),
+                );
+              }
+              return MisCardWidget(
+                miscard: controller.miscards[index - 1],
+              );
+            },
           );
         },
       ),

@@ -5,7 +5,7 @@ import 'package:project_sym/controllers/api/miscard_controller.dart';
 
 class LikedMisCard extends StatelessWidget {
   LikedMisCard({Key? key}) : super(key: key);
-  final controller = Get.put(MisCardController());
+  final MisCardController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,25 +13,26 @@ class LikedMisCard extends StatelessWidget {
         title: const Text('Liked Miscards'),
       ),
       body: SafeArea(
-        child: FutureBuilder(
-        future: controller.getLikedMisCards(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done &&
-              snapshot.hasData) {
+        child: GetBuilder<MisCardController>(
+          initState: (v) async {
+            await controller.getLikedMisCards();
+          },
+          builder: (_) {
+            if (controller.likedMiscards.isEmpty) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
             return ListView.builder(
               itemCount: controller.likedMiscards.length,
               itemBuilder: (context, index) {
                 return MisCardWidget(
-                  miscard: controller.likedMiscards[index],
+                  miscard: controller.likedMiscards[index]
                 );
               },
             );
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
+          },
+        ),
       ),
     );
   }

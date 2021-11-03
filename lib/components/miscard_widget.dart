@@ -18,7 +18,9 @@ class MisCardWidget extends StatelessWidget {
       child: TextButton(
         onPressed: () {
           Get.to(
-            () => MisCardDetails(miscard: miscard),
+            () => MisCardDetails(
+              miscard: miscard,
+            ),
             transition: Transition.zoom,
           );
         },
@@ -27,12 +29,15 @@ class MisCardWidget extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                MisCardUserHeader(user: miscard.user,timeStamp: miscard.timestamp),
+                MisCardUserHeader(
+                    user: miscard.user, timeStamp: miscard.timestamp),
                 MisCardTitle(title: miscard.title),
                 MisCardText(description: miscard.mistake),
               ],
             ),
-            MisCardFooter(miscard: miscard,),
+            MisCardFooter(
+              miscard: miscard,
+            ),
           ],
         ),
       ),

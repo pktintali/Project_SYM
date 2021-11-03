@@ -21,6 +21,7 @@ class MisCardDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(FlipCardDetailsController());
     final fdController = Get.put(MisCardDetailController());
+
     return Scaffold(
       backgroundColor: Colors.amber[100],
       // appBar: AppBar(
@@ -42,7 +43,16 @@ class MisCardDetails extends StatelessWidget {
       bottomSheet: SizedBox(
         height: 49,
         child: GetBuilder<MisCardDetailController>(
+          initState: (v) async {
+            await fdController.isLiked(miscard.id);
+          },
           builder: (_) {
+            if (!fdController.checkedForStatus) {
+              return LinearProgressIndicator(
+                color: Colors.green,
+                backgroundColor: Colors.green.shade200,
+              );
+            }
             return MisCardDetailsIcons(
               miscard: miscard,
               commentsCount: fdController.totalComments,
@@ -94,6 +104,14 @@ class MisCardDetails extends StatelessWidget {
                       await fdController.getComments(id: miscard.id);
                     },
                     builder: (_) {
+                      //TODO This Might Cause BUG
+                      if (fdController.listeners == 1) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.green,
+                          ),
+                        );
+                      }
                       return ListView.builder(
                         itemCount: fdController.comments.length + 2,
                         itemBuilder: (context, index) {
@@ -108,7 +126,8 @@ class MisCardDetails extends StatelessWidget {
                             );
                           }
                           if (index == fdController.comments.length + 1) {
-                            if ((fdController.nextPage)||(fdController.prevPage)) {
+                            if ((fdController.nextPage) ||
+                                (fdController.prevPage)) {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: ButtonBar(
@@ -122,9 +141,10 @@ class MisCardDetails extends StatelessWidget {
                                       ),
                                       child: const Text('Prev'),
                                       onPressed: fdController.prevPage
-                                          ? () async{
-                                             await fdController.getPrevPageComment(
-                                                  cardID: miscard.id);
+                                          ? () async {
+                                              await fdController
+                                                  .getPrevPageComment(
+                                                      cardID: miscard.id);
                                             }
                                           : null,
                                     ),
@@ -136,7 +156,7 @@ class MisCardDetails extends StatelessWidget {
                                                   Colors.green[800]),
                                         ),
                                         child: const Text('Next'),
-                                        onPressed: () async{
+                                        onPressed: () async {
                                           await fdController.getNextPageComment(
                                               cardID: miscard.id);
                                         },

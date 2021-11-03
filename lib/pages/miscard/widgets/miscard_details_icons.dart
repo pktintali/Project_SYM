@@ -5,7 +5,8 @@ import 'package:project_sym/pages/miscard/widgets/miscard_details_footer_icons.d
 class MisCardDetailsIcons extends StatelessWidget {
   final MisCard miscard;
   final int? commentsCount;
-  const MisCardDetailsIcons({Key? key, required this.miscard, this.commentsCount})
+  const MisCardDetailsIcons(
+      {Key? key, required this.miscard, this.commentsCount})
       : super(key: key);
 
   @override

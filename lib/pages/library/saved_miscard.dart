@@ -1,18 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_sym/components/miscard_widget.dart';
+import 'package:project_sym/controllers/api/miscard_controller.dart';
 
 class SavedMisCard extends StatelessWidget {
-  const SavedMisCard({Key? key}) : super(key: key);
-
+  SavedMisCard({Key? key}) : super(key: key);
+  final MisCardController controller = Get.find();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            
+      appBar: AppBar(
+        title: const Text('Saved MisCards'),
+      ),
+      body: SafeArea(
+        child: GetBuilder<MisCardController>(
+          initState: (v) async {
+            await controller.getSavedMisCards();
           },
-          child: const Text('POST'),
+          builder: (_) {
+            if (controller.savedMiscards.isEmpty) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+            return ListView.builder(
+              itemCount: controller.savedMiscards.length,
+              itemBuilder: (context, index) {
+                return MisCardWidget(
+                  miscard: controller.savedMiscards[index]
+                );
+              },
+            );
+          },
         ),
       ),
     );
