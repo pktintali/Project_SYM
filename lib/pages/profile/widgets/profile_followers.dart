@@ -5,21 +5,22 @@ class ProfileFollowers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        Text(
-          '200K',
-          style: TextStyle(
-            fontSize: 20,
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        children: const [
+          Text(
+            '0',
+            style: TextStyle(
+              color: Colors.grey,
+            ),
           ),
-        ),
-        Text(
-          'Followers',
-          style: TextStyle(
-            color: Colors.black87,
+          SizedBox(width: 5),
+          Text(
+            'Followers',
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

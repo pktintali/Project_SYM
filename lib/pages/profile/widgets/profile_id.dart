@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ProfileID extends StatelessWidget {
-  const ProfileID({Key? key}) : super(key: key);
+  final String userName;
+  const ProfileID({Key? key,required this.userName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () {},
-      child: Text(
-        '@pradeep_tintali',
-        style: TextStyle(
-          color: Colors.blue[900],
-        ),
+    return Text(
+      '@$userName',
+      style: const TextStyle(
+        color: Colors.grey,
       ),
     );
   }

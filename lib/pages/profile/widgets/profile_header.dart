@@ -21,6 +21,7 @@ class ProfileHeader extends StatelessWidget {
             const SizedBox(),
             FloatingActionButton(
               mini: true,
+              heroTag: 'menu',
               elevation: 0.5,
               backgroundColor: const Color(0xa0888888),
               onPressed: () {

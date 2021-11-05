@@ -18,17 +18,15 @@ class LikedMisCard extends StatelessWidget {
             await controller.getLikedMisCards();
           },
           builder: (_) {
-            if (controller.likedMiscards.isEmpty) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+            if (!(controller.reqLikeDone) && controller.likedMiscards.isEmpty) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
             return ListView.builder(
               itemCount: controller.likedMiscards.length,
               itemBuilder: (context, index) {
-                return MisCardWidget(
-                  miscard: controller.likedMiscards[index]
-                );
+                return MisCardWidget(miscard: controller.likedMiscards[index]);
               },
             );
           },

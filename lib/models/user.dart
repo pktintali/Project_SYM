@@ -52,7 +52,7 @@ class User {
       firstName: map['first_name']??'',
       lastName: map['last_name']??'',
       email: map['email']??'',
-      dateJoined: map['dateJoined']??'',
+      dateJoined: map['date_joined']??'',
     );
   }
 

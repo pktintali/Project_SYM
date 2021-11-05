@@ -49,15 +49,26 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<bool> registernow(String? uname, String? passw, String? email) async {
+  Future<bool> registernow({
+    String? uname,
+    String? passw,
+    String? email,
+    String? firstName,
+    String? lastName,
+  }) async {
     var url = Uri.parse('${BaseRoute.domain}/api/register/');
     try {
       http.Response response = await http.post(url,
           headers: {
             "Content-Type": "application/json",
           },
-          body: json
-              .encode({"username": uname, "password": passw, "email": email}));
+          body: json.encode({
+            "username": uname,
+            "password": passw,
+            "email": email,
+            "first_name": firstName,
+            "last_name": lastName,
+          }));
       var data = json.decode(response.body) as Map;
       print(data);
       if (data["error"] == false) {

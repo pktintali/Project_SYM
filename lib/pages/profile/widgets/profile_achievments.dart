@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_sym/pages/profile/widgets/achievment_chip.dart';
 
 class ProfileAchievments extends StatelessWidget {
   const ProfileAchievments({Key? key}) : super(key: key);
@@ -7,29 +8,20 @@ class ProfileAchievments extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       children: const [
-        Padding(
-          padding: EdgeInsets.all(4.0),
-          child: Chip(
-            backgroundColor: Colors.yellow,
-            label: Text('Founder'),
-            avatar: Icon(Icons.military_tech_outlined),
-          ),
+        AchievmentChip(
+          text: 'Admin',
+          icon: Icons.military_tech_outlined,
+          color: Colors.yellowAccent,
         ),
-        Padding(
-          padding: EdgeInsets.all(4.0),
-          child: Chip(
-            backgroundColor: Colors.lightBlueAccent,
-            label: Text('Achiever'),
-            avatar: Icon(Icons.star),
-          ),
+        AchievmentChip(
+          text: 'Achiever',
+          icon: Icons.star,
+          color: Colors.lightGreenAccent,
         ),
-        Padding(
-          padding: EdgeInsets.all(4.0),
-          child: Chip(
-            backgroundColor: Colors.lightGreenAccent,
-            label: Text('Helper'),
-            avatar: Icon(Icons.ac_unit),
-          ),
+        AchievmentChip(
+          text: 'Helper',
+          icon: Icons.ac_unit,
+          color: Colors.white,
         ),
       ],
     );

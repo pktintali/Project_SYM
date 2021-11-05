@@ -23,10 +23,47 @@ class SignupPage extends Welcome {
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 decoration: const InputDecoration(
-                  hintText: 'UserName',
+                  hintText: 'UserName...( without white space )',
+                ),
+                onChanged: (v) async {
+                  controller.updateUserName(uName: v);
+                  await controller.checkUserNameAvailability();
+                },
+              ),
+            ),
+            GetBuilder<AuthFieldsController>(
+              builder: (_) {
+                if (!controller.userNameAvailable) {
+                  return const Text(
+                    'Username is already taken',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  );
+                }
+                return const SizedBox();
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: const InputDecoration(
+                  hintText: 'FirstName',
                 ),
                 onChanged: (v) {
-                  controller.updateUserName(uName: v);
+                  controller.updateFirstName(fName: v);
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: const InputDecoration(
+                  hintText: 'LastName',
+                ),
+                onChanged: (v) {
+                  controller.updateLastName(lName: v);
                 },
               ),
             ),
@@ -94,7 +131,12 @@ class SignupPage extends Welcome {
     }
     _form.currentState!.save();
     bool isregis = await authController.registernow(
-        controller.userName, controller.password, controller.email);
+      uname: controller.userName,
+      passw: controller.password,
+      email: controller.email,
+      firstName: controller.firstName,
+      lastName: controller.lastName,
+    );
     if (isregis) {
       Get.to(() => LoginPage());
     } else {

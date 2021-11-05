@@ -11,6 +11,8 @@ class MisCardController extends GetxController {
   bool _fromHome = false;
   bool _fromTrending = false;
   bool _fromSaved = false;
+  bool _reqLikeDone = false;
+  bool _reqSavedDone = false;
 
   List<MisCard> _miscards = [];
   List<MisCard> _trendingMiscards = [];
@@ -21,6 +23,8 @@ class MisCardController extends GetxController {
   bool get fromHome => _fromHome;
   bool get fromtrending => _fromTrending;
   bool get fromSaved => _fromSaved;
+  bool get reqLikeDone => _reqLikeDone;
+  bool get reqSavedDone => _reqSavedDone;
 
   var token = _tokenBox.read('token');
   var currentUserID = _tokenBox.read('userID');
@@ -127,6 +131,7 @@ class MisCardController extends GetxController {
     _fromHome = false;
     _fromSaved = false;
     _fromTrending = false;
+    _reqLikeDone = true;
   }
 
   Future<void> getSavedMisCards() async {
@@ -156,5 +161,6 @@ class MisCardController extends GetxController {
     _fromHome = false;
     _fromSaved = true;
     _fromTrending = false;
+    _reqSavedDone = true;
   }
 }

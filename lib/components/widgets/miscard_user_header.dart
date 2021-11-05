@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:project_sym/models/user.dart';
 
 class MisCardUserHeader extends StatelessWidget {
-  final String timeStamp;
+  final String? timeStamp;
   final User user;
   const MisCardUserHeader(
-      {Key? key, required this.timeStamp, required this.user})
+      {Key? key, this.timeStamp, required this.user})
       : super(key: key);
 
   @override
@@ -43,7 +43,7 @@ class MisCardUserHeader extends StatelessWidget {
           ),
           const Spacer(),
           Text(
-            timeStamp,
+            timeStamp??'',
             style: TextStyle(
               fontSize: 10,
               color: Colors.grey.shade600,

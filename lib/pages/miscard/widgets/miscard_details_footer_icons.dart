@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_sym/components/miscard_likes_list.dart';
 import 'package:project_sym/controllers/api/miscard_controller.dart';
 import 'package:project_sym/controllers/api/miscard_detail_controller.dart';
 import 'package:project_sym/models/miscard.dart';
@@ -63,11 +64,19 @@ class MisCardDetailsFooterIcons extends StatelessWidget {
               ),
               // const SizedBox(width: 4),
               if (!(mc.fromLike || mc.fromSaved))
-                Text(
-                  totalLikes,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 16,
+                InkWell(
+                  onTap: () {
+                    Get.to(() => MisCardLikesList(miscardID: miscard.id));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 2, bottom: 2, right: 8),
+                    child: Text(
+                      totalLikes,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                 ),
             ],
@@ -176,7 +185,9 @@ class MisCardDetailsFooterIcons extends StatelessWidget {
             onTap: () async {
               await mdc.handleSave(miscardID: miscard.id).then(
                 (value) async {
-                  await mc.getSavedMisCards();
+                  if (mc.fromSaved) {
+                    await mc.getSavedMisCards();
+                  }
                 },
               );
             },
