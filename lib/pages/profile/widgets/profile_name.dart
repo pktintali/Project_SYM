@@ -7,23 +7,26 @@ class ProfileName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment:MainAxisAlignment.center,
-      children: [
-        Text(
-          name,
-          style: const TextStyle(
-            fontSize: 21,
-            fontWeight: FontWeight.w600,
+    return Padding(
+      padding: const EdgeInsets.only(top: 5),
+      child: Row(
+        mainAxisAlignment:MainAxisAlignment.center,
+        children: [
+          Text(
+            name,
+            style: const TextStyle(
+              fontSize: 21,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-        ),
-        const SizedBox(width: 3),
-        Icon(
-          Icons.verified,
-          size: 20,
-          color: Colors.green[800],
-        )
-      ],
+          const SizedBox(width: 3),
+          Icon(
+            Icons.verified,
+            size: 20,
+            color: Colors.green[800],
+          )
+        ],
+      ),
     );
   }
 }

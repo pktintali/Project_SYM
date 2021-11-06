@@ -25,15 +25,22 @@ class MisCardDetailController extends GetxController {
   bool _initiallyLiked = false;
   bool _isDisLiked = false;
   bool _isSaved = false;
+  bool _writingMode = false;
   List<Comment> _comments = [];
   List<Comment> get comments => [..._comments];
   int get totalComments => _totalComments;
   bool get isLikedByUser => _isLiked;
   bool get isDisLikedByUser => _isDisLiked;
   bool get isSavedByUser => _isSaved;
+  bool get writingMode => _writingMode;
   int get likeCountMaintainer => _likeCountMaintainer;
   bool get initiallyLiked => _initiallyLiked;
   bool checkedForStatus = false;
+
+  void updateWritingMode(bool v) {
+    _writingMode = v;
+    update();
+  }
 
   Future<bool> getComments({required int id, bool orderByLikes = true}) async {
     orderCByLikes = orderByLikes;

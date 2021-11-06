@@ -7,7 +7,7 @@ class ProfileAbout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Padding(
-      padding: EdgeInsets.only(top:5,left:5,right:5),
+      padding: EdgeInsets.only(top:5,left:5,right:5,bottom: 4),
       child: Text(Constants.about),
     );
   }

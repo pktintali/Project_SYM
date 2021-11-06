@@ -14,7 +14,12 @@ class ProfileLink extends StatelessWidget {
           SizedBox(
             height: 18,
             child: TextButton(
-              child: const Text('linkinbio.xyz'),
+              child: const Text(
+                'linkinbio.xyz',
+                style: TextStyle(
+                  color: Colors.blue,
+                ),
+              ),
               onPressed: () {},
             ),
           ),

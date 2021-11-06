@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_sym/controllers/api/miscard_controller.dart';
 import 'package:project_sym/controllers/api/miscard_create_controller.dart';
+import 'package:project_sym/models/miscard.dart';
 
 class MisCardAddingPage extends StatelessWidget {
-  MisCardAddingPage({Key? key}) : super(key: key);
+  final MisCard? miscard;
+  MisCardAddingPage({Key? key, this.miscard}) : super(key: key);
   final controller = Get.put(MisCardCreateController());
+  final MisCardController mcc = Get.find();
   @override
   Widget build(BuildContext context) {
+    if (miscard != null) {
+      controller.setTitle = miscard!.title;
+      controller.setMistake = miscard!.mistake;
+      controller.setLesson = miscard!.lesson;
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create New Miscard'),
@@ -24,7 +33,8 @@ class MisCardAddingPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: TextField(
+                  child: TextFormField(
+                    initialValue: miscard != null ? miscard!.title : '',
                     decoration: const InputDecoration(
                       // contentPadding: EdgeInsets.all(0.0),
                       focusedBorder: UnderlineInputBorder(
@@ -52,7 +62,8 @@ class MisCardAddingPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: TextField(
+                  child: TextFormField(
+                    initialValue: miscard != null ? miscard!.mistake : '',
                     minLines: 5,
                     maxLines: 10,
                     decoration: const InputDecoration(
@@ -82,7 +93,8 @@ class MisCardAddingPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: TextField(
+                  child: TextFormField(
+                    initialValue: miscard != null ? miscard!.lesson : '',
                     minLines: 5,
                     maxLines: 7,
                     decoration: const InputDecoration(
@@ -106,28 +118,7 @@ class MisCardAddingPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                // DropdownButton(
-                //   isExpanded: true,
-                //   hint: const Text('Select Category'),
-                //   onChanged: (v) {},
-                //   items: [
-                //     DropdownMenuItem(
-                //       value: 1,
-                //       onTap: () {},
-                //       child: const Text('1'),
-                //     ),
-                //     DropdownMenuItem(
-                //       value: 2,
-                //       onTap: () {},
-                //       child: const Text('2'),
-                //     ),
-                //     DropdownMenuItem(
-                //       value: 3,
-                //       onTap: () {},
-                //       child: const Text('3'),
-                //     ),
-                //   ],
-                // ),
+
                 Row(
                   children: [
                     GetBuilder<MisCardCreateController>(
@@ -152,8 +143,14 @@ class MisCardAddingPage extends StatelessWidget {
                   alignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Discard'),
+                      onPressed: () async {
+                        if (miscard != null) {
+                          await controller.deleteMiscard(miscard!.id);
+                          await mcc.getDraftMisCards();
+                        }
+                        Get.back();
+                      },
+                      child: Text(miscard != null ? 'Delete' : 'Discard'),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
                           Colors.deepOrange,
@@ -161,7 +158,39 @@ class MisCardAddingPage extends StatelessWidget {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        if (controller.title == '' &&
+                            controller.mistake == '' &&
+                            controller.lesson == '') {
+                          Get.defaultDialog(
+                            middleText: 'Empty MisCard Discarded',
+                            onConfirm: () {
+                              Get.back();
+                            },
+                          ).then((value) => Navigator.pop(context));
+                        } else {
+                          await controller
+                              .handleDraftSave(
+                                title: controller.title,
+                                mistake: controller.mistake,
+                                lesson: controller.lesson,
+                                draftID: miscard != null ? miscard!.id : null,
+                                put: miscard != null ? true : false,
+                              )
+                              .then(
+                                (value) => Get.defaultDialog(
+                                  middleText: 'Draft Saved',
+                                  onConfirm: () {
+                                    Get.back();
+                                  },
+                                ),
+                              )
+                              .then((value) => Navigator.pop(context));
+                          if(miscard!=null){
+                            await mcc.getDraftMisCards();
+                          }
+                        }
+                      },
                       child: const Text(
                         'Save Draft',
                         style: TextStyle(
@@ -184,6 +213,7 @@ class MisCardAddingPage extends StatelessWidget {
                                 title: controller.title,
                                 mistake: controller.mistake,
                                 lesson: controller.lesson,
+                                miscardID: miscard!=null?miscard!.id:null,
                               )
                               .then(
                                 (value) => Get.defaultDialog(
@@ -193,6 +223,9 @@ class MisCardAddingPage extends StatelessWidget {
                                   },
                                 ),
                               );
+                          if(miscard!=null){
+                            await mcc.getDraftMisCards();
+                          }
                           Navigator.pop(context);
                         }
                       },

@@ -67,10 +67,10 @@ class MisCardDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MisCardUserHeader(
-                  timeStamp: miscard.timestamp, user: miscard.user),
+                  timeStamp: miscard.timestamp, user: miscard.user!),
               const Divider(height: 5),
               MisCardTitle(
-                title: miscard.title,
+                title: miscard.title??'',
                 fromDetails: true,
               ),
               FlipCard(
@@ -80,10 +80,10 @@ class MisCardDetails extends StatelessWidget {
                 },
                 controller: controller.fController,
                 front: MisCardFront(
-                  mistake: miscard.mistake,
+                  mistake: miscard.mistake??'',
                 ),
                 back: MisCardBack(
-                  lesson: miscard.lesson,
+                  lesson: miscard.lesson??"",
                 ),
               ),
               MisCardDetailsFooter(),

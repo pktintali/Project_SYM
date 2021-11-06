@@ -13,11 +13,13 @@ class MisCardController extends GetxController {
   bool _fromSaved = false;
   bool _reqLikeDone = false;
   bool _reqSavedDone = false;
+  bool _reqDraftDone = false;
 
   List<MisCard> _miscards = [];
   List<MisCard> _trendingMiscards = [];
   List<MisCard> _likedMiscards = [];
   List<MisCard> _savedMiscards = [];
+  List<MisCard> _draftMisCards = [];
 
   bool get fromLike => _fromLike;
   bool get fromHome => _fromHome;
@@ -25,25 +27,20 @@ class MisCardController extends GetxController {
   bool get fromSaved => _fromSaved;
   bool get reqLikeDone => _reqLikeDone;
   bool get reqSavedDone => _reqSavedDone;
+  bool get reqDraftDone => _reqDraftDone;
 
   var token = _tokenBox.read('token');
   var currentUserID = _tokenBox.read('userID');
 
-  List<MisCard> get miscards {
-    return [..._miscards];
-  }
+  List<MisCard> get miscards => [..._miscards];
 
-  List<MisCard> get trendingMiscards {
-    return [..._trendingMiscards];
-  }
+  List<MisCard> get trendingMiscards => [..._trendingMiscards];
 
-  List<MisCard> get likedMiscards {
-    return [..._likedMiscards];
-  }
+  List<MisCard> get likedMiscards => [..._likedMiscards];
 
-  List<MisCard> get savedMiscards {
-    return [..._savedMiscards];
-  }
+  List<MisCard> get savedMiscards => [..._savedMiscards];
+
+  List<MisCard> get draftMiscards => [..._draftMisCards];
 
   Future<void> getMisCards() async {
     print('Getting MisCards');
@@ -153,7 +150,7 @@ class MisCardController extends GetxController {
       _savedMiscards = temp;
       update();
     } catch (e) {
-      print("e get likes");
+      print("e get saved");
       print(e);
     }
 
@@ -162,5 +159,28 @@ class MisCardController extends GetxController {
     _fromSaved = true;
     _fromTrending = false;
     _reqSavedDone = true;
+  }
+
+  Future<void> getDraftMisCards() async {
+    print('Getting Draft MisCard');
+    var url = Uri.parse('${BaseRoute.domain}/api/users/$currentUserID/drafts/?ordering=-created_at');
+    try {
+      http.Response response =
+          await http.get(url, headers: {'Authorization': "token $token"});
+      var data = json.decode(response.body);
+      data = data['results'] as List;
+      // print(data);
+      List<MisCard> temp = [];
+      data.forEach((element) {
+        MisCard mc = MisCard.fromMap(element);
+        temp.add(mc);
+      });
+      _draftMisCards = temp;
+      update();
+    } catch (e) {
+      print("e get draft miscards");
+      print(e);
+    }
+    _reqDraftDone = true;
   }
 }

@@ -40,7 +40,7 @@ class LibraryPage extends StatelessWidget {
             child: ListTile(
               leading: const Icon(Icons.history),
               onTap: () {
-                Get.to(() => const DraftMisCard());
+                Get.to(() => DraftMisCard());
               },
               title: const Text('Drafts'),
             ),

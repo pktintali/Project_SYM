@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
-import 'package:project_sym/pages/categoryview/category_view.dart';
 import 'package:project_sym/pages/home/constants.dart';
 
 class HomeTopChips extends StatelessWidget {
@@ -21,7 +19,7 @@ class HomeTopChips extends StatelessWidget {
               backgroundColor: Colors.white,
               label: Text(Constants.categoryList[index]),
               onPressed: () {
-                Get.to(() => const CategoryView());
+                
               },
             ),
           );

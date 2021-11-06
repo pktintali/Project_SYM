@@ -3,24 +3,24 @@ import 'package:project_sym/models/user.dart';
 
 class MisCard {
   final int id;
-  final String title;
-  final String mistake;
-  final String lesson;
+  final String? title;
+  final String? mistake;
+  final String? lesson;
   final bool? commentAllowed;
   final int? likesCount;
   final int? dislikesCount;
-  final User user;
+  final User? user;
   final String timestamp;
   final bool? isLiked;
   MisCard({
     required this.id,
-    required this.title,
-    required this.mistake,
-    required this.lesson,
+    this.title,
+    this.mistake,
+    this.lesson,
     this.commentAllowed,
     this.likesCount,
     this.dislikesCount,
-    required this.user,
+    this.user,
     required this.timestamp,
     this.isLiked,
   });
@@ -60,7 +60,7 @@ class MisCard {
       'commentAllowed': commentAllowed,
       'likesCount': likesCount,
       'dislikesCount': dislikesCount,
-      'user': user.toMap(),
+      'user': user!=null?user!.toMap():null,
       'timestamp': timestamp,
       'isLiked':isLiked,
     };
@@ -75,7 +75,7 @@ class MisCard {
       commentAllowed: map['comment_allowed'],
       likesCount: map['likes_count'],
       dislikesCount: map['dislikes_count'],
-      user: User.fromMap(map['user']),
+      user: map['user']!=null?User.fromMap(map['user']):null,
       timestamp: map['created_at'],
       isLiked: likedByUser,
     );

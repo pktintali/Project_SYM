@@ -22,25 +22,26 @@ class MisCardCommentWriteBox extends StatelessWidget {
         const SizedBox(width: 6),
         Expanded(
           child: TextField(
-              controller: mdc.commentBoxTextController,
-              minLines: 1,
-              maxLines: 4,
-              decoration: InputDecoration(
-                hintText: 'Add a public comment...',
-                filled: true,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 15,
-                  vertical: 5,
-                ),
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide.none,
-                ),
+            controller: mdc.commentBoxTextController,
+            minLines: 1,
+            maxLines: 4,
+            decoration: InputDecoration(
+              hintText: 'Add a public comment...',
+              filled: true,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 5,
               ),
-              onChanged: (v) {
-                mdc.commentBoxText = v;
-              }),
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: BorderSide.none,
+              ),
+            ),
+            onChanged: (v) {
+              mdc.commentBoxText = v;
+            },
+          ),
         ),
         IconButton(
           onPressed: () {
