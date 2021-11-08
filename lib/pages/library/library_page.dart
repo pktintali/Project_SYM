@@ -59,6 +59,15 @@ class LibraryPage extends StatelessWidget {
               title: const Text('LogOut'),
             ),
           ),
+          Card(
+            child: ListTile(
+              leading: const Icon(Icons.settings),
+              onTap: () async {
+                await mc.testPost();
+              },
+              title: const Text('Test'),
+            ),
+          ),
         ],
       ),
     );

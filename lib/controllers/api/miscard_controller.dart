@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:project_sym/controllers/api/base_route.dart';
 import 'package:project_sym/models/miscard.dart';
 
@@ -163,7 +165,8 @@ class MisCardController extends GetxController {
 
   Future<void> getDraftMisCards() async {
     print('Getting Draft MisCard');
-    var url = Uri.parse('${BaseRoute.domain}/api/users/$currentUserID/drafts/?ordering=-created_at');
+    var url = Uri.parse(
+        '${BaseRoute.domain}/api/users/$currentUserID/drafts/?ordering=-created_at');
     try {
       http.Response response =
           await http.get(url, headers: {'Authorization': "token $token"});
@@ -182,5 +185,43 @@ class MisCardController extends GetxController {
       print(e);
     }
     _reqDraftDone = true;
+  }
+
+  Future<void> testPost() async {
+    late File file;
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowedExtensions: ['jpg', 'png'],
+    );
+    if (result != null) {
+      file = File(result.files.single.path!);
+      print(file.path);
+    } else {
+      // User canceled the picker
+    }
+    try {
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse("${BaseRoute.domain}/api/users/1/profile/"),
+      );
+      Map<String, String> headers = {
+        "Authorization": "token $token",
+        "Content-type": "multipart/form-data"
+      };
+      request.files.add(
+        http.MultipartFile(
+          'profile_pic',
+          file.readAsBytes().asStream(),
+          file.lengthSync(),
+          filename: file.path.split('/').last
+        ),
+      );
+      request.headers.addAll(headers);
+      request.fields.addAll({"about": "test about"});
+      var res = await request.send();
+      print("This is response:" + res.statusCode.toString());
+    } catch (e) {
+      print("e profile Miscard");
+      print(e);
+    }
   }
 }

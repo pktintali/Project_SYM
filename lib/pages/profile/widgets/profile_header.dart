@@ -4,7 +4,11 @@ import 'package:project_sym/pages/profile/constants.dart';
 import 'package:project_sym/pages/profile/edit_profile.dart';
 
 class ProfileHeader extends StatelessWidget {
-  const ProfileHeader({Key? key}) : super(key: key);
+  final bool fromTab;
+  const ProfileHeader({
+    Key? key,
+    this.fromTab = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,17 @@ class ProfileHeader extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(),
+            fromTab
+                ? const SizedBox()
+                : FloatingActionButton.small(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: const Icon(
+                      Icons.arrow_back_rounded,
+                    ),
+                    backgroundColor: Colors.green,
+                  ),
             FloatingActionButton(
               mini: true,
               heroTag: 'menu',

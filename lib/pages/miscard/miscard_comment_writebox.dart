@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_sym/controllers/api/miscard_detail_controller.dart';
+import 'package:project_sym/pages/profile/widgets/profile_pic.dart';
 
 class MisCardCommentWriteBox extends StatelessWidget {
   final int miscardID;
-  MisCardCommentWriteBox({Key? key, required this.miscardID}) : super(key: key);
+  final String curUserPic;
+  MisCardCommentWriteBox(
+      {Key? key, required this.miscardID, required this.curUserPic})
+      : super(key: key);
   final MisCardDetailController mdc = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    print(curUserPic);
     return Row(
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           backgroundColor: Colors.greenAccent,
           radius: 17,
-          child: Icon(
-            Icons.person,
-            color: Colors.black,
-          ),
+          child: curUserPic == ''
+              ? const Icon(
+                  Icons.person,
+                  color: Colors.black,
+                )
+              : ProfilePic(picURL: curUserPic),
         ),
         const SizedBox(width: 6),
         Expanded(

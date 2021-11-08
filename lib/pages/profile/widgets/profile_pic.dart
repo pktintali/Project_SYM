@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:project_sym/controllers/api/base_route.dart';
 import 'package:project_sym/pages/profile/constants.dart';
 
 class ProfilePic extends StatelessWidget {
-  const ProfilePic({Key? key}) : super(key: key);
+  final String picURL;
+  const ProfilePic({Key? key, required this.picURL}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,18 +13,18 @@ class ProfilePic extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.green,
-          width: 2.0,
+          width: 1.0,
         ),
         borderRadius: BorderRadius.circular(100),
-        image: const DecorationImage(
+        image: DecorationImage(
           image: NetworkImage(
-            Constants.profilePic,
+           picURL==''?Constants.profilePic:picURL.startsWith('http')?picURL:BaseRoute.domain+picURL
           ),
         ),
       ),
       child: SizedBox(
-        height: 80+_mdq.width/25,
-        width: 80+_mdq.width/25,
+        height: 80 + _mdq.width / 25,
+        width: 80 + _mdq.width / 25,
       ),
     );
   }

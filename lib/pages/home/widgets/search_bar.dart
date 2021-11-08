@@ -9,53 +9,55 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: 'Search any MisCards...',
-                    prefixIcon: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back_rounded,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    autofocus: true,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintText: 'Search any MisCards...',
+                      prefixIcon: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back_rounded,
+                          color: Colors.green,
+                        ),
+                        onPressed: () {
+                          Get.back();
+                        },
+                      ),
+                      suffixIcon: const Icon(
+                        Icons.search_outlined,
                         color: Colors.green,
                       ),
-                      onPressed: () {
-                        Get.back();
-                      },
                     ),
-                    suffixIcon: const Icon(
-                      Icons.search_outlined,
-                      color: Colors.green,
-                    ),
+                    onChanged: (v) async {
+                      if (v != '') {
+                        await msc.searchMiscards(v);
+                      }
+                    },
                   ),
-                  onChanged: (v) async {
-                    if (v != '') {
-                      await msc.searchMiscards(v);
-                    }
-                  },
                 ),
-              ),
-            ],
-          ),
-          Expanded(
-            child: GetBuilder<MisCardSearchController>(
-              builder: (_) {
-                return ListView.builder(
-                  itemCount: msc.searchResult.length,
-                  itemBuilder: (c, i) {
-                    return MisCardWidget(miscard: msc.searchResult[i]);
-                  },
-                );
-              },
+              ],
             ),
-          ),
-        ],
+            Expanded(
+              child: GetBuilder<MisCardSearchController>(
+                builder: (_) {
+                  return ListView.builder(
+                    itemCount: msc.searchResult.length,
+                    itemBuilder: (c, i) {
+                      return MisCardWidget(miscard: msc.searchResult[i]);
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

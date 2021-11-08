@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -11,37 +10,56 @@ class ProfilePageController extends GetxController {
   static final _tokenBox = GetStorage();
   var token = _tokenBox.read('token');
   var currentUserID = _tokenBox.read('userID');
-
   bool _miscardLoading = true;
   User? _user;
+  User? _currentUser;
+  User? get currentUser => _currentUser;
   List<MisCard> _profileMisCards = [];
 
   bool get miscardLoading => _miscardLoading;
   User? get user => _user;
   List<MisCard> get profileMisCards => [..._profileMisCards];
 
-  Future<void> getUser() async {
-    var url = Uri.parse('${BaseRoute.domain}/api/currentuser/');
+  Future<void> getUser({int? userID}) async {
+    Uri url;
+    if (userID != null) {
+      url = Uri.parse('${BaseRoute.domain}/api/users/$userID');
+    } else {
+      url = Uri.parse('${BaseRoute.domain}/api/currentuser/');
+    }
 
     try {
       http.Response response =
           await http.get(url, headers: {'Authorization': "token $token"});
       // print(response.body);
       var data = json.decode(response.body);
-      print(data);
-      _user = User.fromMap(data[0]);
+      // print(data);
+      if (_user == null) {
+        _currentUser = User.fromMap(data[0]);
+      }
+      if (userID != null) {
+        _user = User.fromMap(data);
+      } else {
+        _user = User.fromMap(data[0]);
+      }
       // print(temp);
-      update();
+      // update();
     } catch (e) {
       print("e get User Profile");
       print(e);
     }
   }
 
-  Future<void> getProfileMisCards() async {
+  Future<void> getProfileMisCards({int? userID}) async {
     print('Getting Profile MisCards');
+    int uID;
+    if (userID != null) {
+      uID = userID;
+    } else {
+      uID = currentUserID;
+    }
     var url = Uri.parse(
-        '${BaseRoute.domain}/api/miscards/?ordering=-created_at&user_id=$currentUserID');
+        '${BaseRoute.domain}/api/miscards/?ordering=-created_at&user_id=$uID');
 
     try {
       http.Response response =

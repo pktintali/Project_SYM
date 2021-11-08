@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:project_sym/components/widgets/miscard_title.dart';
 import 'package:project_sym/components/widgets/miscard_user_header.dart';
 import 'package:project_sym/controllers/api/miscard_detail_controller.dart';
+import 'package:project_sym/controllers/api/profile_page_controller.dart';
 import 'package:project_sym/controllers/flipcard_details_controller.dart';
 import 'package:project_sym/models/miscard.dart';
 import 'package:project_sym/pages/miscard/miscard_comment.dart';
@@ -16,9 +17,10 @@ import 'package:project_sym/pages/miscard/widgets/miscard_front.dart';
 class MisCardDetails extends StatelessWidget {
   final MisCard miscard;
   const MisCardDetails({Key? key, required this.miscard}) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
+    final ProfilePageController pc = Get.find();
     final controller = Get.put(FlipCardDetailsController());
     final fdController = Get.put(MisCardDetailController());
 
@@ -70,7 +72,7 @@ class MisCardDetails extends StatelessWidget {
                   timeStamp: miscard.timestamp, user: miscard.user!),
               const Divider(height: 5),
               MisCardTitle(
-                title: miscard.title??'',
+                title: miscard.title ?? '',
                 fromDetails: true,
               ),
               FlipCard(
@@ -80,10 +82,10 @@ class MisCardDetails extends StatelessWidget {
                 },
                 controller: controller.fController,
                 front: MisCardFront(
-                  mistake: miscard.mistake??'',
+                  mistake: miscard.mistake ?? '',
                 ),
                 back: MisCardBack(
-                  lesson: miscard.lesson??"",
+                  lesson: miscard.lesson ?? "",
                 ),
               ),
               MisCardDetailsFooter(),
@@ -120,6 +122,7 @@ class MisCardDetails extends StatelessWidget {
                               children: [
                                 MisCardCommentWriteBox(
                                   miscardID: miscard.id,
+                                  curUserPic: pc.currentUser!.profilePic??'',
                                 ),
                                 const Divider(),
                               ],

@@ -14,22 +14,23 @@ import 'package:project_sym/pages/profile/widgets/profile_name.dart';
 import 'package:project_sym/pages/profile/widgets/profile_pic.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  final int? userID;
+  const ProfilePage({Key? key, this.userID}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final mdq = MediaQuery.of(context).size;
-    final controller = Get.put(ProfilePageController());
+    final ProfilePageController controller = Get.find();
     return SafeArea(
       child: SingleChildScrollView(
         child: GetBuilder<ProfilePageController>(
           initState: (v) async {
-            if (controller.user == null) {
-              await controller.getUser();
-            }
-            if (controller.profileMisCards.isEmpty) {
-              await controller.getProfileMisCards();
-            }
+            // if (controller.user == null) {
+            await controller.getUser(userID: userID);
+            // }
+            // if (controller.profileMisCards.isEmpty) {
+            await controller.getProfileMisCards(userID: userID);
+            // }
           },
           builder: (_) {
             if (controller.user == null) {
@@ -50,7 +51,9 @@ class ProfilePage extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    const ProfileHeader(),
+                    ProfileHeader(
+                      fromTab: userID != null ? false : true,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
@@ -60,6 +63,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                     ProfileName(
                       name: fullName,
+                      isVerified: controller.user!.verified,
                     ),
                     Center(
                       child: ProfileID(
@@ -119,8 +123,8 @@ class ProfilePage extends StatelessWidget {
                   padding: EdgeInsets.only(top: 2 * mdq.width / 11),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      ProfilePic(),
+                    children: [
+                      ProfilePic(picURL: controller.user!.profilePic ?? ''),
                     ],
                   ),
                 ),
