@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MisCardFront extends StatelessWidget {
   final String mistake;
@@ -59,7 +60,7 @@ class MisCardFront extends StatelessWidget {
                 // ),
                 Padding(
                   padding:const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-                  child: Text(mistake),
+                  child: Text(mistake,style:GoogleFonts.padauk()),
                 ),
               ],
             ),

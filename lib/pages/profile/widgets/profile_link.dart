@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ProfileLink extends StatelessWidget {
-  const ProfileLink({Key? key}) : super(key: key);
+  final String? bioLink;
+  const ProfileLink({Key? key, this.bioLink}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,15 +11,17 @@ class ProfileLink extends StatelessWidget {
       child: Row(
         children: [
           const Text('Link:'),
-          const SizedBox(width: 5),
-          TextButton(
-            child: const Text(
-              'linkinbio.xyz',
-              style: TextStyle(
-                color: Colors.blue,
+          InkWell(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              child: Text(
+                bioLink??'',
+                style: const TextStyle(
+                  color: Colors.blue,
+                ),
               ),
             ),
-            onPressed: () {},
           ),
         ],
       ),

@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_sym/controllers/api/base_route.dart';
 import 'package:project_sym/models/miscard.dart';
+import 'package:project_sym/models/profile.dart';
 import 'package:project_sym/models/user.dart';
 
 class ProfilePageController extends GetxController {
@@ -11,23 +12,45 @@ class ProfilePageController extends GetxController {
   var token = _tokenBox.read('token');
   var currentUserID = _tokenBox.read('userID');
   bool _miscardLoading = true;
+  bool _userLoading = true;
   User? _user;
+  Profile? _profile;
   User? _currentUser;
   User? get currentUser => _currentUser;
   List<MisCard> _profileMisCards = [];
 
   bool get miscardLoading => _miscardLoading;
+  bool get userLoading => _userLoading;
   User? get user => _user;
+  Profile? get profile => _profile;
   List<MisCard> get profileMisCards => [..._profileMisCards];
 
+  Future<void> getProfile({required int userID}) async {
+    Uri url = Uri.parse('${BaseRoute.domain}/api/users/$userID/profile/');
+    try {
+      http.Response response =
+          await http.get(url, headers: {'Authorization': "token $token"});
+      // print(response.body);
+      var data = json.decode(response.body);
+      // print(data);
+      _profile = Profile.fromMap(data[0]);
+      // print(temp);
+    } catch (e) {
+      _profile = Profile(
+          id: 0, adminBadge: false, helperBadge: false, impactorBadge: false);
+      print("e get User Profile");
+      print(e);
+    }
+  }
+
   Future<void> getUser({int? userID}) async {
+    _userLoading = true;
     Uri url;
     if (userID != null) {
       url = Uri.parse('${BaseRoute.domain}/api/users/$userID');
     } else {
       url = Uri.parse('${BaseRoute.domain}/api/currentuser/');
     }
-
     try {
       http.Response response =
           await http.get(url, headers: {'Authorization': "token $token"});
@@ -39,13 +62,18 @@ class ProfilePageController extends GetxController {
       }
       if (userID != null) {
         _user = User.fromMap(data);
+        await getProfile(userID: userID);
       } else {
         _user = User.fromMap(data[0]);
+        _currentUser = User.fromMap(data[0]);
+        await getProfile(userID: data[0]['id']);
+        
       }
+      _userLoading = false;
       // print(temp);
-      // update();
+      update();
     } catch (e) {
-      print("e get User Profile");
+      print("e get User");
       print(e);
     }
   }

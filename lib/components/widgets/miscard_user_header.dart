@@ -18,7 +18,7 @@ class MisCardUserHeader extends StatelessWidget {
     } else {
       humanTime = '';
     }
-    print(user.profilePic);
+    // print(user.profilePic);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(

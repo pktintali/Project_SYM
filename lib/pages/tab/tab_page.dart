@@ -52,9 +52,9 @@ class TabPage extends StatelessWidget {
               BottomNavigationBarItem(
                   icon: Icon(Icons.trending_up), label: 'Trending'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.local_library), label: 'Library'),
-              BottomNavigationBarItem(
                   icon: Icon(Icons.account_circle), label: 'Profile'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.local_library), label: 'Library'),
             ],
             onTap: (index) {
               controller.updateSelectedTab(index);
@@ -69,9 +69,9 @@ class TabPage extends StatelessWidget {
     if (index == 1) {
       return TrendingPage();
     } else if (index == 2) {
-      return LibraryPage();
+      return const ProfilePage();
     } else if (index == 3) {
-      return ProfilePage();
+      return LibraryPage();
     }
     return HomePage();
   }

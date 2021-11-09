@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MisCardTitle extends StatelessWidget {
   final bool fromDetails;
@@ -9,15 +10,12 @@ class MisCardTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: fromDetails?4:0),
-      child: Text(
-        title,
-        style: TextStyle(
-          fontSize: fromDetails?17:15,
-          // fontWeight: FontWeight.w600,
-          color: Colors.green,
-        ),
-      ),
+      padding: EdgeInsets.only(bottom: fromDetails ? 4 : 0),
+      child: Text(title,
+          style: GoogleFonts.esteban(fontSize: fromDetails ? 17 : 15,
+            // fontWeight: FontWeight.w600,
+            color: Colors.green,),
+          ),
     );
   }
 }

@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_sym/pages/profile/edit_profile.dart';
 
 class DateAndFollow extends StatelessWidget {
   final String dateJoined;
-  const DateAndFollow({Key? key, required this.dateJoined}) : super(key: key);
+  final int userID;
+  final bool isCurUser;
+  const DateAndFollow(
+      {Key? key,
+      required this.dateJoined,
+      required this.userID,
+      required this.isCurUser})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +23,7 @@ class DateAndFollow extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Text(
-          dateJoined.substring(0,10),
+          dateJoined.substring(0, 10),
           style: const TextStyle(
             color: Colors.grey,
           ),
@@ -22,14 +31,29 @@ class DateAndFollow extends StatelessWidget {
         const Spacer(),
         Padding(
           padding: const EdgeInsets.only(right: 10),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50),
+          child: ButtonTheme(
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                    isCurUser ? Colors.white : Colors.green),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
               ),
+              child: Text(
+                isCurUser ? 'Edit Profile' : 'Follow',
+                style: TextStyle(
+                  color: isCurUser ? Colors.black : Colors.white,
+                ),
+              ),
+              onPressed: () {
+                if(isCurUser){
+                  Get.to(() => const EditProfile());
+                }
+              },
             ),
-            child: const Text('Follow'),
-            onPressed: () {},
           ),
         )
       ],

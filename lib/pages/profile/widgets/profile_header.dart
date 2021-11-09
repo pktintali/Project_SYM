@@ -45,9 +45,9 @@ class ProfileHeader extends StatelessWidget {
                   items: [
                     PopupMenuItem(
                       enabled: true,
-                      child: const Text('Edit Profile'),
+                      child: const Text('LogOut'),
                       onTap: () {
-                        Get.to(() => const EditProfile());
+                       
                       },
                     ),
                     const PopupMenuItem(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project_sym/models/comment.dart';
 import 'package:project_sym/pages/miscard/widgets/miscard_comment_icons.dart';
 import 'package:project_sym/pages/profile/widgets/profile_pic.dart';
@@ -76,6 +77,7 @@ class MisCardcomment extends StatelessWidget {
                     comment.description,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.padauk(),
                     // textAlign: TextAlign.left,
                   ),
                 ),

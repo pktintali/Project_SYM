@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:project_sym/pages/profile/constants.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProfileAbout extends StatelessWidget {
-  const ProfileAbout({Key? key}) : super(key: key);
+  final String? about;
+  const ProfileAbout({Key? key, this.about}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(top:5,left:5,right:5,bottom: 4),
-      child: Text(Constants.about),
+    return Padding(
+      padding: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 4),
+      child: Text(
+        about ?? '',
+        style: GoogleFonts.padauk(),
+      ),
     );
   }
 }

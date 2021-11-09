@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MisCardText extends StatelessWidget {
   final String description;
@@ -10,7 +11,7 @@ class MisCardText extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Text(
         description,
-        style: const TextStyle(color: Colors.black),
+        style: GoogleFonts.padauk(color: Colors.black),
       ),
     );
   }

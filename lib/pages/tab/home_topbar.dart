@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project_sym/pages/home/widgets/search_bar.dart';
 
 class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
@@ -9,9 +10,9 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       leading: const Icon(Icons.air_sharp),
-      title: const Text(
+      title: Text(
         'Project SYM',
-        style: TextStyle(fontSize: 17),
+        style: GoogleFonts.heptaSlab(),
       ),
       actions: [
         IconButton(
@@ -20,7 +21,7 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
             Get.to(() => SearchBar());
           },
         ),
-        const SizedBox(width: 4),
+        // const SizedBox(width: 4),
         const Icon(Icons.notifications),
         const SizedBox(width: 4),
       ],

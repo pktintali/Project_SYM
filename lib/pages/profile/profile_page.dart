@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_sym/components/miscard_widget.dart';
 import 'package:project_sym/controllers/api/profile_page_controller.dart';
+import 'package:project_sym/models/profile.dart';
 import 'package:project_sym/pages/profile/widgets/date_and_follow.dart';
 import 'package:project_sym/pages/profile/widgets/profile_about.dart';
 import 'package:project_sym/pages/profile/widgets/profile_achievments.dart';
@@ -21,6 +22,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final mdq = MediaQuery.of(context).size;
     final ProfilePageController controller = Get.find();
+
     return SafeArea(
       child: SingleChildScrollView(
         child: GetBuilder<ProfilePageController>(
@@ -33,9 +35,15 @@ class ProfilePage extends StatelessWidget {
             // }
           },
           builder: (_) {
-            if (controller.user == null) {
-              return const Center(
-                child: CircularProgressIndicator(),
+            if (controller.profile == null || controller.userLoading) {
+              return const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 50,
+                ),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
               );
             }
             late String fullName;
@@ -45,7 +53,10 @@ class ProfilePage extends StatelessWidget {
             } else {
               fullName = controller.user!.userName;
             }
-            print(fullName);
+            Profile profile = controller.profile!;
+            bool isAnyAchievment = (profile.adminBadge ||
+                profile.helperBadge ||
+                profile.impactorBadge);
 
             return Stack(
               children: [
@@ -71,19 +82,27 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ),
                     DateAndFollow(
-                        dateJoined: controller.user!.dateJoined ?? ''),
-                    const ProfileLink(),
-                    const ProfileAbout(),
-                    const Center(
-                      child: Text(
-                        'Achievments',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey,
+                      dateJoined: controller.user!.dateJoined ?? '',
+                      isCurUser:
+                          controller.user!.id == controller.currentUser!.id,
+                      userID: controller.user!.id,
+                    ),
+                    if (profile.bioLink != null && profile.bioLink != '')
+                      ProfileLink(bioLink: profile.bioLink),
+                    if (profile.about != null)
+                      ProfileAbout(about: profile.about),
+
+                    if (isAnyAchievment)
+                      const Center(
+                        child: Text(
+                          'Achievments',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
-                    ),
-                    const ProfileAchievments(),
+                    if (isAnyAchievment) ProfileAchievments(profile: profile),
                     const Divider(
                       color: Colors.green,
                       height: 10,
