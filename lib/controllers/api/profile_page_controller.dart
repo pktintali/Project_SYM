@@ -128,7 +128,8 @@ class ProfilePageController extends GetxController {
         },
         body: json.encode({"user": uId}),
       );
-      var data = json.decode(response.body) as Map;
+      print(response.body);
+      // var data = json.decode(response.body) as Map;
       // print(data);
       await checkFollowingStatus(uId);
     } catch (e) {
