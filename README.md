@@ -1,4 +1,4 @@
-# project_sym
+# Project SYM
 
 A new Flutter project.
 
