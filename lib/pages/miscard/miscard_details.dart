@@ -1,8 +1,8 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_sym/components/widgets/miscard_title.dart';
-import 'package:project_sym/components/widgets/miscard_user_header.dart';
+import 'package:project_sym/components/miscard_title.dart';
+import 'package:project_sym/components/miscard_user_header.dart';
 import 'package:project_sym/controllers/api/miscard_detail_controller.dart';
 import 'package:project_sym/controllers/api/profile_page_controller.dart';
 import 'package:project_sym/controllers/flipcard_details_controller.dart';
@@ -106,7 +106,7 @@ class MisCardDetails extends StatelessWidget {
                       await fdController.getComments(id: miscard.id);
                     },
                     builder: (_) {
-                      //TODO This Might Cause BUG
+                      //Note This Might Cause BUG
                       if (fdController.listeners == 1) {
                         return const Center(
                           child: CircularProgressIndicator(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:project_sym/components/widgets/miscard_footer.dart';
-import 'package:project_sym/components/widgets/miscard_text.dart';
-import 'package:project_sym/components/widgets/miscard_title.dart';
-import 'package:project_sym/components/widgets/miscard_user_header.dart';
+import 'package:project_sym/components/miscard_footer.dart';
+import 'package:project_sym/components/miscard_text.dart';
+import 'package:project_sym/components/miscard_title.dart';
+import 'package:project_sym/components/miscard_user_header.dart';
 import 'package:project_sym/models/miscard.dart';
 import 'package:project_sym/pages/miscard/miscard_adding_page.dart';
 import 'package:project_sym/pages/miscard/miscard_details.dart';

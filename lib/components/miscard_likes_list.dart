@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_sym/components/widgets/miscard_user_header.dart';
+import 'package:project_sym/components/miscard_user_header.dart';
 import 'package:project_sym/controllers/api/miscard_likes_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 

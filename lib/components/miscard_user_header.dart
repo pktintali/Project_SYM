@@ -81,6 +81,17 @@ class MisCardUserHeader extends StatelessWidget {
               fontSize: 10,
               color: Colors.grey.shade600,
             ),
+          ),
+          InkWell(
+            child: const Padding(
+              padding: EdgeInsets.all(4.0),
+              child: Icon(
+                Icons.more_vert_outlined,
+                size: 20,
+                color: Colors.grey,
+              ),
+            ),
+            onTap: () {},
           )
         ],
       ),

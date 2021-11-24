@@ -21,21 +21,21 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mdq = MediaQuery.of(context).size;
-    final ProfilePageController controller = Get.find();
+    final ProfilePageController _controller = Get.find();
 
     return SafeArea(
       child: SingleChildScrollView(
         child: GetBuilder<ProfilePageController>(
           initState: (v) async {
-            // if (controller.user == null) {
-            await controller.getUser(userID: userID);
+            // if (_controller.user == null) {
+            await _controller.getUser(userID: userID);
             // }
-            // if (controller.profileMisCards.isEmpty) {
-            await controller.getProfileMisCards(userID: userID);
+            // if (_controller.profileMisCards.isEmpty) {
+            await _controller.getProfileMisCards(userID: userID);
             // }
           },
           builder: (_) {
-            if (controller.profile == null || controller.userLoading) {
+            if (_controller.profile == null || _controller.userLoading) {
               return const Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: 10,
@@ -47,13 +47,13 @@ class ProfilePage extends StatelessWidget {
               );
             }
             late String fullName;
-            if (controller.user!.firstName != '') {
+            if (_controller.user!.firstName != '') {
               fullName =
-                  '${controller.user!.firstName} ${controller.user!.lastName}';
+                  '${_controller.user!.firstName} ${_controller.user!.lastName}';
             } else {
-              fullName = controller.user!.userName;
+              fullName = _controller.user!.userName;
             }
-            Profile profile = controller.profile!;
+            Profile profile = _controller.profile!;
             bool isAnyAchievment = (profile.adminBadge ||
                 profile.helperBadge ||
                 profile.impactorBadge);
@@ -67,25 +67,27 @@ class ProfilePage extends StatelessWidget {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        ProfileFollowers(),
-                        ProfileFollowings(),
+                      children: [
+                        const ProfileFollowers(),
+                        ProfileFollowings(
+                          followersCount: _controller.noOfFollowers,
+                        ),
                       ],
                     ),
                     ProfileName(
                       name: fullName,
-                      isVerified: controller.user!.verified,
+                      isVerified: _controller.user!.verified,
                     ),
                     Center(
                       child: ProfileID(
-                        userName: controller.user!.userName,
+                        userName: _controller.user!.userName,
                       ),
                     ),
                     DateAndFollow(
-                      dateJoined: controller.user!.dateJoined ?? '',
+                      dateJoined: _controller.user!.dateJoined ?? '',
                       isCurUser:
-                          controller.user!.id == controller.currentUser!.id,
-                      userID: controller.user!.id,
+                          _controller.user!.id == _controller.currentUser!.id,
+                      userID: _controller.user!.id,
                     ),
                     if (profile.bioLink != null && profile.bioLink != '')
                       ProfileLink(bioLink: profile.bioLink),
@@ -121,13 +123,13 @@ class ProfilePage extends StatelessWidget {
                     //Fill with MisCards
                     SimpleBuilder(
                       builder: (c) {
-                        if (controller.miscardLoading) {
+                        if (_controller.miscardLoading) {
                           return const Center(
                             child: CircularProgressIndicator(),
                           );
                         } else {
                           List<Widget> _miscards = [];
-                          for (var miscard in controller.profileMisCards) {
+                          for (var miscard in _controller.profileMisCards) {
                             _miscards.add(MisCardWidget(miscard: miscard));
                           }
                           return Column(
@@ -143,7 +145,7 @@ class ProfilePage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ProfilePic(picURL: controller.user!.profilePic ?? ''),
+                      ProfilePic(picURL: _controller.user!.profilePic ?? ''),
                     ],
                   ),
                 ),

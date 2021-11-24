@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:project_sym/pages/profile/constants.dart';
-import 'package:project_sym/pages/profile/edit_profile.dart';
 
 class ProfileHeader extends StatelessWidget {
   final bool fromTab;

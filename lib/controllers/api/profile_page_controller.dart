@@ -13,6 +13,9 @@ class ProfilePageController extends GetxController {
   var currentUserID = _tokenBox.read('userID');
   bool _miscardLoading = true;
   bool _userLoading = true;
+  bool _isFollowing = false;
+  int _noOfFollowers = 0;
+  int? _followingObjectID;
   User? _user;
   Profile? _profile;
   User? _currentUser;
@@ -21,6 +24,8 @@ class ProfilePageController extends GetxController {
 
   bool get miscardLoading => _miscardLoading;
   bool get userLoading => _userLoading;
+  bool get isFollowing => _isFollowing;
+  int get noOfFollowers => _noOfFollowers;
   User? get user => _user;
   Profile? get profile => _profile;
   List<MisCard> get profileMisCards => [..._profileMisCards];
@@ -63,11 +68,12 @@ class ProfilePageController extends GetxController {
       if (userID != null) {
         _user = User.fromMap(data);
         await getProfile(userID: userID);
+        await checkFollowingStatus(userID);
       } else {
         _user = User.fromMap(data[0]);
         _currentUser = User.fromMap(data[0]);
         await getProfile(userID: data[0]['id']);
-        
+        await checkFollowingStatus(currentUserID);
       }
       _userLoading = false;
       // print(temp);
@@ -107,6 +113,80 @@ class ProfilePageController extends GetxController {
       update();
     } catch (e) {
       print("e get profile Miscards");
+      print(e);
+    }
+  }
+
+  Future<void> handleFollowButton(int uId) async {
+    var url = Uri.parse('${BaseRoute.domain}/api/followings/');
+    try {
+      http.Response response = await http.post(
+        url,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "token $token"
+        },
+        body: json.encode({"user": uId}),
+      );
+      var data = json.decode(response.body) as Map;
+      // print(data);
+      await checkFollowingStatus(uId);
+    } catch (e) {
+      print("e followig");
+      print(e);
+    }
+  }
+
+  Future<void> handleUnfollow(int uId) async {
+    if (_followingObjectID != null) {
+      var url =
+          Uri.parse('${BaseRoute.domain}/api/followings/$_followingObjectID/');
+      try {
+        http.Response response = await http.delete(
+          url,
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "token $token"
+          },
+        );
+        // var data = json.decode(response.body) as Map;
+        print(response);
+        await checkFollowingStatus(uId);
+      } catch (e) {
+        print("e unfollowig");
+        print(e);
+      }
+    }
+  }
+
+  Future<void> checkFollowingStatus(int id) async {
+    Uri url = Uri.parse('${BaseRoute.domain}/api/followings/?user_id=$id');
+    try {
+      http.Response response =
+          await http.get(url, headers: {'Authorization': "token $token"});
+      // print(response.body);
+      var data = json.decode(response.body);
+      // print(data);
+      _noOfFollowers = data['count'];
+      if (_noOfFollowers != 0) {
+        data = data['results'] as List;
+        for (int i = 0; i < data.length; i++) {
+          if (data[i]['followed_by']['id'] == currentUserID) {
+            _isFollowing = true;
+            _followingObjectID = data[i]['id'];
+            break;
+          } else {
+            _isFollowing = false;
+            _followingObjectID = null;
+          }
+        }
+      } else {
+        _isFollowing = false;
+        _followingObjectID = null;
+      }
+      update();
+    } catch (e) {
+      print("e get User chekFollowStatus");
       print(e);
     }
   }
