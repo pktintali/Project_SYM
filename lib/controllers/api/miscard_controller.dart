@@ -14,12 +14,14 @@ class MisCardController extends GetxController {
   bool _reqLikeDone = false;
   bool _reqSavedDone = false;
   bool _reqDraftDone = false;
+  int _selectedTopicIndex = -1;
 
   List<MisCard> _miscards = [];
   List<MisCard> _trendingMiscards = [];
   List<MisCard> _likedMiscards = [];
   List<MisCard> _savedMiscards = [];
   List<MisCard> _draftMisCards = [];
+  List<String> _allTopics = [];
 
   bool get fromLike => _fromLike;
   bool get fromHome => _fromHome;
@@ -28,9 +30,12 @@ class MisCardController extends GetxController {
   bool get reqLikeDone => _reqLikeDone;
   bool get reqSavedDone => _reqSavedDone;
   bool get reqDraftDone => _reqDraftDone;
+  int get selectedTopicIndex => _selectedTopicIndex;
 
   var token = _tokenBox.read('token');
   var currentUserID = _tokenBox.read('userID');
+
+  List<String> get allTopics => [..._allTopics];
 
   List<MisCard> get miscards => [..._miscards];
 
@@ -43,9 +48,51 @@ class MisCardController extends GetxController {
   List<MisCard> get draftMiscards => [..._draftMisCards];
 
   Future<void> getMisCards() async {
+    _selectedTopicIndex = -1;
     print('Getting MisCards');
     var url =
         Uri.parse('${BaseRoute.domain}/api/miscards/?ordering=-created_at');
+
+    try {
+      http.Response response =
+          await http.get(url, headers: {'Authorization': "token $token"});
+      // print(response.body);
+      var data = json.decode(response.body);
+      data = data['results'] as List;
+      // print(data);
+      List<MisCard> temp = [];
+      _allTopics = [];
+      data.forEach((element) {
+        MisCard mc = MisCard.fromMap(element);
+        var ct = element['topics'];
+        if (ct != null) {
+          for (var i in ct) {
+            if (!_allTopics.contains(i)) {
+              _allTopics.add(i);
+            }
+          }
+        }
+        temp.add(mc);
+      });
+      // print(temp);
+      _miscards = temp;
+      update();
+    } catch (e) {
+      print("e getMiscards");
+      print(e);
+    }
+
+    _fromLike = false;
+    _fromHome = true;
+    _fromSaved = false;
+    _fromTrending = false;
+  }
+
+  Future<void> getTopicMisCards({required String topic, required int i}) async {
+    _selectedTopicIndex = i;
+    print('Getting Topic MisCards');
+    var url = Uri.parse(
+        '${BaseRoute.domain}/api/miscards/?ordering=-likes_count&-created_at&topics__contains=$topic');
 
     try {
       http.Response response =
@@ -59,14 +106,12 @@ class MisCardController extends GetxController {
         MisCard mc = MisCard.fromMap(element);
         temp.add(mc);
       });
-      // print(temp);
       _miscards = temp;
       update();
     } catch (e) {
-      print("e getMiscards");
+      print("e get Topic miscards");
       print(e);
     }
-
     _fromLike = false;
     _fromHome = true;
     _fromSaved = false;

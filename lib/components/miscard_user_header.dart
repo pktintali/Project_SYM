@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/route_manager.dart';
+import 'package:project_sym/controllers/api/profile_page_controller.dart';
 import 'package:project_sym/models/user.dart';
 import 'package:project_sym/pages/profile/profile_view.dart';
 import 'package:project_sym/pages/profile/widgets/profile_pic.dart';
@@ -7,9 +10,10 @@ import 'package:project_sym/pages/profile/widgets/profile_pic.dart';
 class MisCardUserHeader extends StatelessWidget {
   final String? timeStamp;
   final User user;
-  const MisCardUserHeader({Key? key, this.timeStamp, required this.user})
+  MisCardUserHeader({Key? key, this.timeStamp, required this.user})
       : super(key: key);
 
+  final ProfilePageController pc = Get.find();
   @override
   Widget build(BuildContext context) {
     String humanTime;
@@ -91,7 +95,25 @@ class MisCardUserHeader extends StatelessWidget {
                 color: Colors.grey,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Get.defaultDialog(middleText: 'Select an Option', actions: [
+                user.id == pc.currentUserID
+                    ? TextButton(
+                        child: const Text('Edit'),
+                        onPressed: () {},
+                      )
+                    : TextButton(
+                        child: const Text('Report'),
+                        onPressed: () {},
+                      ),
+                TextButton(
+                  child: const Text('Close'),
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
+              ]);
+            },
           )
         ],
       ),

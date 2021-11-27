@@ -30,8 +30,8 @@ class HomePage extends StatelessWidget {
             itemCount: controller.miscards.length + 1,
             itemBuilder: (context, index) {
               if (index == 0) {
-                return const Padding(
-                  padding: EdgeInsets.only(top: 4),
+                return Padding(
+                  padding: const EdgeInsets.only(top: 4),
                   child: HomeTopChips(),
                 );
               }

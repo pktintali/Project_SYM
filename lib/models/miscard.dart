@@ -12,6 +12,7 @@ class MisCard {
   final User? user;
   final String timestamp;
   final bool? isLiked;
+  final List? topics;
   MisCard({
     required this.id,
     this.title,
@@ -23,6 +24,7 @@ class MisCard {
     this.user,
     required this.timestamp,
     this.isLiked,
+    this.topics,
   });
 
   MisCard copyWith({
@@ -36,6 +38,7 @@ class MisCard {
     User? user,
     String? timestamp,
     bool? isLiked,
+    List? topics,
   }) {
     return MisCard(
       id: id ?? this.id,
@@ -47,7 +50,8 @@ class MisCard {
       dislikesCount: dislikesCount ?? this.dislikesCount,
       user: user ?? this.user,
       timestamp: timestamp ?? this.timestamp,
-      isLiked: isLiked??this.isLiked,
+      isLiked: isLiked ?? this.isLiked,
+      topics: topics ?? this.topics,
     );
   }
 
@@ -60,13 +64,15 @@ class MisCard {
       'commentAllowed': commentAllowed,
       'likesCount': likesCount,
       'dislikesCount': dislikesCount,
-      'user': user!=null?user!.toMap():null,
+      'user': user != null ? user!.toMap() : null,
       'timestamp': timestamp,
-      'isLiked':isLiked,
+      'isLiked': isLiked,
+      'topics': topics,
     };
   }
 
-  factory MisCard.fromMap(Map<String, dynamic> map, {bool likedByUser = false}) {
+  factory MisCard.fromMap(Map<String, dynamic> map,
+      {bool likedByUser = false}) {
     return MisCard(
       id: map['id'],
       title: map['title'],
@@ -75,9 +81,10 @@ class MisCard {
       commentAllowed: map['comment_allowed'],
       likesCount: map['likes_count'],
       dislikesCount: map['dislikes_count'],
-      user: map['user']!=null?User.fromMap(map['user']):null,
+      user: map['user'] != null ? User.fromMap(map['user']) : null,
       timestamp: map['created_at'],
       isLiked: likedByUser,
+      topics: map['topics'],
     );
   }
 
