@@ -229,4 +229,30 @@ class MisCardController extends GetxController {
     }
     _reqDraftDone = true;
   }
+
+  Future<void> deleteMiscard({required int miscardID}) async {
+    Uri url = Uri.parse('${BaseRoute.domain}/api/miscards/$miscardID/');
+
+    try {
+      http.Response response = await http.delete(
+        url,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "token $token"
+        },
+      );
+      var data = response.body;
+      print(data);
+      //Note: Remove getting homepage cards and trending page cards when large usr
+      if (_fromHome) {
+        await getMisCards();
+      }
+      if (_fromTrending) {
+        await getTrendingMisCards();
+      }
+    } catch (e) {
+      print("e Deleting MisCard");
+      print(e);
+    }
+  }
 }

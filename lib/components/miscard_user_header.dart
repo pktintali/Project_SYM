@@ -2,18 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/route_manager.dart';
+import 'package:project_sym/controllers/api/miscard_controller.dart';
 import 'package:project_sym/controllers/api/profile_page_controller.dart';
+import 'package:project_sym/models/miscard.dart';
 import 'package:project_sym/models/user.dart';
+import 'package:project_sym/pages/miscard/miscard_adding_page.dart';
 import 'package:project_sym/pages/profile/profile_view.dart';
 import 'package:project_sym/pages/profile/widgets/profile_pic.dart';
 
 class MisCardUserHeader extends StatelessWidget {
   final String? timeStamp;
   final User user;
-  MisCardUserHeader({Key? key, this.timeStamp, required this.user})
+  final MisCard? miscard;
+  MisCardUserHeader(
+      {Key? key, this.timeStamp, required this.user, this.miscard})
       : super(key: key);
 
   final ProfilePageController pc = Get.find();
+  final MisCardController mc = Get.find();
   @override
   Widget build(BuildContext context) {
     String humanTime;
@@ -97,10 +103,27 @@ class MisCardUserHeader extends StatelessWidget {
             ),
             onTap: () {
               Get.defaultDialog(middleText: 'Select an Option', actions: [
+                if (user.id == pc.currentUserID)
+                  TextButton(
+                    child: const Text('Delete'),
+                    onPressed: () async {
+                      await mc
+                          .deleteMiscard(miscardID: miscard!.id)
+                          .then((value) => Get.back());
+                      await pc.getProfileMisCards();
+                    },
+                  ),
                 user.id == pc.currentUserID
                     ? TextButton(
                         child: const Text('Edit'),
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(
+                            () => MisCardAddingPage(
+                              miscard: miscard,
+                              editMode: true,
+                            ),
+                          );
+                        },
                       )
                     : TextButton(
                         child: const Text('Report'),

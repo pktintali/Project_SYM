@@ -28,10 +28,11 @@ jobs:
       - run: flutter pub get
       - run: flutter analyze
       # - run: flutter build apk
-      - run: flutter build apk --debug --split-per-abi
+      # - run: flutter build apk --debug --split-per-abi
+      - run: flutter build apk --profile
       - name: Push APK to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/debug/*.apk"
+          artifacts: "build/app/outputs/apk/profile/*.apk"
           token: ${{ secrets.GITHUB_TOKEN }}
         

@@ -17,7 +17,7 @@ import 'package:project_sym/pages/miscard/widgets/miscard_front.dart';
 class MisCardDetails extends StatelessWidget {
   final MisCard miscard;
   const MisCardDetails({Key? key, required this.miscard}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     final ProfilePageController pc = Get.find();
@@ -69,7 +69,10 @@ class MisCardDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MisCardUserHeader(
-                  timeStamp: miscard.timestamp, user: miscard.user!),
+                timeStamp: miscard.timestamp,
+                user: miscard.user!,
+                miscard: miscard,
+              ),
               const Divider(height: 5),
               MisCardTitle(
                 title: miscard.title ?? '',
@@ -122,7 +125,7 @@ class MisCardDetails extends StatelessWidget {
                               children: [
                                 MisCardCommentWriteBox(
                                   miscardID: miscard.id,
-                                  curUserPic: pc.currentUser!.profilePic??'',
+                                  curUserPic: pc.currentUser!.profilePic ?? '',
                                 ),
                                 const Divider(),
                               ],

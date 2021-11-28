@@ -66,7 +66,9 @@ class MisCardDetailsFooterIcons extends StatelessWidget {
               if (!(mc.fromLike || mc.fromSaved))
                 InkWell(
                   onTap: () {
-                    Get.to(() => MisCardLikesList(miscardID: miscard.id));
+                    Get.to(
+                      () => MisCardLikesList(miscardID: miscard.id),
+                    );
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(top: 2, bottom: 2, right: 8),

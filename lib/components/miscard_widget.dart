@@ -24,11 +24,12 @@ class MisCardWidget extends StatelessWidget {
             Get.to(() => MisCardAddingPage(miscard: miscard));
           } else {
             Get.to(
-              () => MisCardDetails(
-                miscard: miscard,
-              ),
-              transition: Transition.zoom,
-            );
+                () => MisCardDetails(
+                      miscard: miscard,
+                    ),
+                transition: Transition.size,
+                curve: Curves.easeInOutSine,
+                duration: const Duration(milliseconds: 500));
           }
         },
         child: Column(
@@ -36,11 +37,14 @@ class MisCardWidget extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if(!fromDraft)
-                MisCardUserHeader(
-                    user: miscard.user!, timeStamp: miscard.timestamp),
-                MisCardTitle(title: miscard.title??'No Title'),
-                MisCardText(description: miscard.mistake??""),
+                if (!fromDraft)
+                  MisCardUserHeader(
+                    user: miscard.user!,
+                    timeStamp: miscard.timestamp,
+                    miscard: miscard,
+                  ),
+                MisCardTitle(title: miscard.title ?? 'No Title'),
+                MisCardText(description: miscard.mistake ?? ""),
               ],
             ),
             if (!fromDraft)

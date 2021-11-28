@@ -6,8 +6,8 @@ import 'package:project_sym/models/profile.dart';
 import 'package:project_sym/pages/profile/widgets/date_and_follow.dart';
 import 'package:project_sym/pages/profile/widgets/profile_about.dart';
 import 'package:project_sym/pages/profile/widgets/profile_achievments.dart';
+import 'package:project_sym/pages/profile/widgets/profile_followings.dart';
 import 'package:project_sym/pages/profile/widgets/profile_followers.dart';
-import 'package:project_sym/pages/profile/widgets/profile_following.dart';
 import 'package:project_sym/pages/profile/widgets/profile_header.dart';
 import 'package:project_sym/pages/profile/widgets/profile_id.dart';
 import 'package:project_sym/pages/profile/widgets/profile_link.dart';
@@ -68,9 +68,10 @@ class ProfilePage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const ProfileFollowers(),
-                        ProfileFollowings(
+                        const ProfileFollowings(),
+                        ProfileFollowers(
                           followersCount: _controller.noOfFollowers,
+                          userID: _controller.user!.id,
                         ),
                       ],
                     ),

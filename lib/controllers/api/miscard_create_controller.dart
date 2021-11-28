@@ -94,9 +94,15 @@ class MisCardCreateController extends GetxController {
     required String mistake,
     required String lesson,
     int? draftID,
+    bool editMode = false,
   }) async {
-    var url = Uri.parse(
-        '${BaseRoute.domain}/api/users/$currentUserID/drafts/$draftID/');
+    Uri url;
+    if (editMode) {
+      url = Uri.parse('${BaseRoute.domain}/api/miscards/$draftID/');
+    } else {
+      url = Uri.parse(
+          '${BaseRoute.domain}/api/users/$currentUserID/drafts/$draftID/');
+    }
     try {
       http.Response response = await http.put(
         url,
@@ -114,7 +120,11 @@ class MisCardCreateController extends GetxController {
       var data = json.decode(response.body) as Map;
       print(data);
     } catch (e) {
-      print("e Updating Draft");
+      if (editMode) {
+        print('Error updating miscard');
+      } else {
+        print("e Updating Draft");
+      }
       print(e);
     }
   }
@@ -125,18 +135,24 @@ class MisCardCreateController extends GetxController {
     required String lesson,
     int? draftID,
     bool put = false,
+    bool editMode = false,
   }) async {
     if (put) {
       await updateDraft(
-          title: title, mistake: mistake, lesson: lesson, draftID: draftID);
+          title: title,
+          mistake: mistake,
+          lesson: lesson,
+          draftID: draftID,
+          editMode: editMode);
     } else {
       await addDraft(title: title, mistake: mistake, lesson: lesson);
     }
   }
 
   Future<void> deleteMiscard(int draftID) async {
-    var url = Uri.parse(
+    Uri url = Uri.parse(
         '${BaseRoute.domain}/api/users/$currentUserID/drafts/$draftID/');
+
     try {
       http.Response response = await http.delete(
         url,
@@ -148,7 +164,7 @@ class MisCardCreateController extends GetxController {
       var data = response.body;
       print(data);
     } catch (e) {
-      print("e Deleting Draft");
+      print("e Deleting Draft/MisCard");
       print(e);
     }
   }

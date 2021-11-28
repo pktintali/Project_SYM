@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_sym/controllers/api/miscard_controller.dart';
 import 'package:project_sym/controllers/api/miscard_create_controller.dart';
+import 'package:project_sym/controllers/api/profile_page_controller.dart';
 import 'package:project_sym/models/miscard.dart';
 
 class MisCardAddingPage extends StatelessWidget {
   final MisCard? miscard;
-  MisCardAddingPage({Key? key, this.miscard}) : super(key: key);
-  final controller = Get.put(MisCardCreateController());
+  final bool editMode;
+  MisCardAddingPage({Key? key, this.miscard, this.editMode = false})
+      : super(key: key);
+
+  final ProfilePageController pc = Get.find();
   final MisCardController mcc = Get.find();
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(MisCardCreateController());
     if (miscard != null) {
       controller.setTitle = miscard!.title;
       controller.setMistake = miscard!.mistake;
@@ -144,13 +149,17 @@ class MisCardAddingPage extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () async {
-                        if (miscard != null) {
+                        if (miscard != null && !editMode) {
                           await controller.deleteMiscard(miscard!.id);
                           await mcc.getDraftMisCards();
                         }
                         Get.back();
                       },
-                      child: Text(miscard != null ? 'Delete' : 'Discard'),
+                      child: Text(miscard != null
+                          ? editMode
+                              ? 'Cancel'
+                              : 'Delete'
+                          : 'Discard'),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
                           Colors.deepOrange,
@@ -176,24 +185,30 @@ class MisCardAddingPage extends StatelessWidget {
                                 lesson: controller.lesson,
                                 draftID: miscard != null ? miscard!.id : null,
                                 put: miscard != null ? true : false,
+                                editMode: editMode,
                               )
                               .then(
                                 (value) => Get.defaultDialog(
-                                  middleText: 'Draft Saved',
+                                  middleText: editMode
+                                      ? 'MisCard Updated'
+                                      : 'Draft Saved',
                                   onConfirm: () {
                                     Get.back();
                                   },
                                 ),
                               )
                               .then((value) => Navigator.pop(context));
-                          if(miscard!=null){
+                          if (miscard != null && !editMode) {
                             await mcc.getDraftMisCards();
+                          }
+                          if (editMode) {
+                            await pc.getProfileMisCards();
                           }
                         }
                       },
-                      child: const Text(
-                        'Save Draft',
-                        style: TextStyle(
+                      child: Text(
+                        editMode ? 'Update' : 'Save Draft',
+                        style: const TextStyle(
                           color: Colors.black,
                         ),
                       ),
@@ -203,39 +218,41 @@ class MisCardAddingPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (controller.title != '' &&
-                            controller.mistake != '' &&
-                            controller.lesson != '') {
-                          await controller
-                              .addMisCard(
-                                title: controller.title,
-                                mistake: controller.mistake,
-                                lesson: controller.lesson,
-                                miscardID: miscard!=null?miscard!.id:null,
-                              )
-                              .then(
-                                (value) => Get.defaultDialog(
-                                  middleText: 'MisCard Created Successfully',
-                                  onConfirm: () {
-                                    Get.back();
-                                  },
-                                ),
-                              );
-                          if(miscard!=null){
-                            await mcc.getDraftMisCards();
+                    if (!editMode)
+                      ElevatedButton(
+                        onPressed: () async {
+                          if (controller.title != '' &&
+                              controller.mistake != '' &&
+                              controller.lesson != '') {
+                            await controller
+                                .addMisCard(
+                                  title: controller.title,
+                                  mistake: controller.mistake,
+                                  lesson: controller.lesson,
+                                  miscardID:
+                                      miscard != null ? miscard!.id : null,
+                                )
+                                .then(
+                                  (value) => Get.defaultDialog(
+                                    middleText: 'MisCard Created Successfully',
+                                    onConfirm: () {
+                                      Get.back();
+                                    },
+                                  ),
+                                );
+                            if (miscard != null) {
+                              await mcc.getDraftMisCards();
+                            }
+                            Navigator.pop(context);
                           }
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: const Text('Publish'),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          Colors.green[800],
+                        },
+                        child: const Text('Publish'),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                            Colors.green[800],
+                          ),
                         ),
                       ),
-                    ),
                   ],
                 ),
                 //Think about preview
