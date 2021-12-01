@@ -39,7 +39,7 @@ class EditProfileController extends GetxController {
       print(currentUserID);
       var request = http.MultipartRequest(
         'PATCH',
-        Uri.parse("${BaseRoute.domain}/api/users/$currentUserID/"),
+        Uri.parse("${BaseRoute.domain}/users/$currentUserID/"),
       );
       Map<String, String> headers = {
         "Authorization": "token $token",

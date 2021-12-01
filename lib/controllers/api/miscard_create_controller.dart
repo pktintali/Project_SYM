@@ -35,7 +35,7 @@ class MisCardCreateController extends GetxController {
     required String lesson,
     int? miscardID,
   }) async {
-    var url = Uri.parse('${BaseRoute.domain}/api/miscards/');
+    var url = Uri.parse('${BaseRoute.domain}/miscards/');
     try {
       http.Response response = await http.post(
         url,
@@ -66,7 +66,7 @@ class MisCardCreateController extends GetxController {
     required String mistake,
     required String lesson,
   }) async {
-    var url = Uri.parse('${BaseRoute.domain}/api/users/$currentUserID/drafts/');
+    var url = Uri.parse('${BaseRoute.domain}/users/$currentUserID/drafts/');
     try {
       http.Response response = await http.post(
         url,
@@ -98,10 +98,10 @@ class MisCardCreateController extends GetxController {
   }) async {
     Uri url;
     if (editMode) {
-      url = Uri.parse('${BaseRoute.domain}/api/miscards/$draftID/');
+      url = Uri.parse('${BaseRoute.domain}/miscards/$draftID/');
     } else {
       url = Uri.parse(
-          '${BaseRoute.domain}/api/users/$currentUserID/drafts/$draftID/');
+          '${BaseRoute.domain}/users/$currentUserID/drafts/$draftID/');
     }
     try {
       http.Response response = await http.put(
@@ -151,7 +151,7 @@ class MisCardCreateController extends GetxController {
 
   Future<void> deleteMiscard(int draftID) async {
     Uri url = Uri.parse(
-        '${BaseRoute.domain}/api/users/$currentUserID/drafts/$draftID/');
+        '${BaseRoute.domain}/users/$currentUserID/drafts/$draftID/');
 
     try {
       http.Response response = await http.delete(

@@ -8,7 +8,7 @@ class AuthController extends GetxController {
   final tokenBox = GetStorage();
 
   Future<int> getUserID(String token) async {
-    var url = Uri.parse('${BaseRoute.domain}/api/currentuser/');
+    var url = Uri.parse('${BaseRoute.domain}/currentuser/');
     try {
       http.Response response =
           await http.get(url, headers: {'Authorization': "token $token"});
@@ -23,7 +23,7 @@ class AuthController extends GetxController {
   }
 
   Future<bool> loginNow(String? uname, String? passw) async {
-    var url = Uri.parse('${BaseRoute.domain}/api/login/');
+    var url = Uri.parse('${BaseRoute.domain}/login/');
     try {
       http.Response response = await http.post(url,
           headers: {
@@ -56,7 +56,7 @@ class AuthController extends GetxController {
     String? firstName,
     String? lastName,
   }) async {
-    var url = Uri.parse('${BaseRoute.domain}/api/register/');
+    var url = Uri.parse('${BaseRoute.domain}/register/');
     try {
       http.Response response = await http.post(url,
           headers: {

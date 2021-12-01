@@ -16,7 +16,7 @@ class MisCardSearchController extends GetxController {
   Future<void> searchMiscards(String keyword) async {
     print('Getting MisCards');
     var url = Uri.parse(
-        '${BaseRoute.domain}/api/miscards/?ordering=-likes_count&search=$keyword');
+        '${BaseRoute.domain}/miscards/?ordering=-likes_count&search=$keyword');
 
     try {
       http.Response response =

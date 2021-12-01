@@ -50,7 +50,7 @@ class MisCardDetailController extends GetxController {
       ordering = '-likes_count,-created_at';
     }
     var url = Uri.parse(
-        '${BaseRoute.domain}/api/miscards/$id/comments/?ordering=$ordering&page=$page');
+        '${BaseRoute.domain}/miscards/$id/comments/?ordering=$ordering&page=$page');
 
     try {
       http.Response response =
@@ -97,7 +97,7 @@ class MisCardDetailController extends GetxController {
 
   Future<void> writeComment({required int miscardID}) async {
     var url =
-        Uri.parse('${BaseRoute.domain}/api/miscards/$miscardID/comments/');
+        Uri.parse('${BaseRoute.domain}/miscards/$miscardID/comments/');
     try {
       http.Response response = await http.post(
         url,
@@ -119,7 +119,7 @@ class MisCardDetailController extends GetxController {
 
   Future<void> isSaved(int miscardID) async {
     var url = Uri.parse(
-        '${BaseRoute.domain}/api/saved_miscards/?user_id=$currentUserID&miscard_id=$miscardID');
+        '${BaseRoute.domain}/saved_miscards/?user_id=$currentUserID&miscard_id=$miscardID');
     try {
       http.Response response =
           await http.get(url, headers: {'Authorization': "token $token"});
@@ -142,7 +142,7 @@ class MisCardDetailController extends GetxController {
 
   Future<void> isDisLiked(int miscardID) async {
     var url = Uri.parse(
-        '${BaseRoute.domain}/api/miscards/$miscardID/dislikes/?user__id=$currentUserID');
+        '${BaseRoute.domain}/miscards/$miscardID/dislikes/?user__id=$currentUserID');
     try {
       http.Response response =
           await http.get(url, headers: {'Authorization': "token $token"});
@@ -164,7 +164,7 @@ class MisCardDetailController extends GetxController {
 
   Future<void> isLiked(int miscardID) async {
     var url = Uri.parse(
-        '${BaseRoute.domain}/api/miscards/$miscardID/likes/?user__id=$currentUserID');
+        '${BaseRoute.domain}/miscards/$miscardID/likes/?user__id=$currentUserID');
     try {
       http.Response response =
           await http.get(url, headers: {'Authorization': "token $token"});
@@ -188,7 +188,7 @@ class MisCardDetailController extends GetxController {
 
   Future<void> handleLike({required int miscardID}) async {
     if (!_isLiked) {
-      var url = Uri.parse('${BaseRoute.domain}/api/miscards/$miscardID/likes/');
+      var url = Uri.parse('${BaseRoute.domain}/miscards/$miscardID/likes/');
       try {
         http.Response response = await http.post(
           url,
@@ -216,7 +216,7 @@ class MisCardDetailController extends GetxController {
       }
     } else {
       var url = Uri.parse(
-          '${BaseRoute.domain}/api/miscards/$miscardID/likes/$_likedID/');
+          '${BaseRoute.domain}/miscards/$miscardID/likes/$_likedID/');
       try {
         await http.delete(
           url,
@@ -244,7 +244,7 @@ class MisCardDetailController extends GetxController {
   Future<void> handleDislike({required int miscardID}) async {
     if (!_isDisLiked) {
       var url =
-          Uri.parse('${BaseRoute.domain}/api/miscards/$miscardID/dislikes/');
+          Uri.parse('${BaseRoute.domain}/miscards/$miscardID/dislikes/');
       try {
         http.Response response = await http.post(
           url,
@@ -270,7 +270,7 @@ class MisCardDetailController extends GetxController {
       }
     } else {
       var url = Uri.parse(
-          '${BaseRoute.domain}/api/miscards/$miscardID/dislikes/$_disLikedID/');
+          '${BaseRoute.domain}/miscards/$miscardID/dislikes/$_disLikedID/');
       try {
         await http.delete(
           url,
@@ -293,7 +293,7 @@ class MisCardDetailController extends GetxController {
 
   Future<void> handleSave({required int miscardID}) async {
     if (!_isSaved) {
-      var url = Uri.parse('${BaseRoute.domain}/api/saved_miscards/');
+      var url = Uri.parse('${BaseRoute.domain}/saved_miscards/');
       try {
         http.Response response = await http.post(
           url,
@@ -315,7 +315,7 @@ class MisCardDetailController extends GetxController {
         print(e);
       }
     } else {
-      var url = Uri.parse('${BaseRoute.domain}/api/saved_miscards/$_savedID/');
+      var url = Uri.parse('${BaseRoute.domain}/saved_miscards/$_savedID/');
       try {
         await http.delete(
           url,

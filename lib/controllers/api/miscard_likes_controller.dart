@@ -21,7 +21,7 @@ class MisCardLikesController extends GetxController {
       {bool fromLoading = false}) async {
     print('Getting MisCard Liked');
     var url = Uri.parse(
-        '${BaseRoute.domain}/api/miscards/$miscardID/likes/?page=$_curPage');
+        '${BaseRoute.domain}/miscards/$miscardID/likes/?page=$_curPage');
 
     try {
       http.Response response =

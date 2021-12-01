@@ -21,7 +21,7 @@ class FollowingListController extends GetxController {
   Future<void> getFollowings({int? userID, bool fromLoading = false}) async {
     print('Getting Followings List');
     var url = Uri.parse(
-        '${BaseRoute.domain}/api/followings/?user_id=$userID&page=$_curPage');
+        '${BaseRoute.domain}/followings/?user_id=$userID&page=$_curPage');
 
     try {
       http.Response response =

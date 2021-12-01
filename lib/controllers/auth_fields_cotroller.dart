@@ -52,7 +52,7 @@ class AuthFieldsController extends GetxController {
     _reqTime ??= ct + 201 ;
     if ((ct - _reqTime!).abs() > 200) {
       _reqTime = DateTime.now().second;
-      var url = Uri.parse('${BaseRoute.domain}/api/users/');
+      var url = Uri.parse('${BaseRoute.domain}/users/');
 
       try {
         http.Response response = await http.get(url);

@@ -51,7 +51,7 @@ class MisCardController extends GetxController {
     _selectedTopicIndex = -1;
     print('Getting MisCards');
     var url =
-        Uri.parse('${BaseRoute.domain}/api/miscards/?ordering=-created_at');
+        Uri.parse('${BaseRoute.domain}/miscards/?ordering=-created_at');
 
     try {
       http.Response response =
@@ -92,7 +92,7 @@ class MisCardController extends GetxController {
     _selectedTopicIndex = i;
     print('Getting Topic MisCards');
     var url = Uri.parse(
-        '${BaseRoute.domain}/api/miscards/?ordering=-likes_count&-created_at&topics__contains=$topic');
+        '${BaseRoute.domain}/miscards/?ordering=-likes_count&-created_at&topics__contains=$topic');
 
     try {
       http.Response response =
@@ -121,7 +121,7 @@ class MisCardController extends GetxController {
   Future<void> getTrendingMisCards() async {
     print('Getting Trending MisCards');
     var url = Uri.parse(
-        '${BaseRoute.domain}/api/miscards/?ordering=-likes_count,-created_at');
+        '${BaseRoute.domain}/miscards/?ordering=-likes_count,-created_at');
 
     try {
       http.Response response =
@@ -150,7 +150,7 @@ class MisCardController extends GetxController {
   Future<void> getLikedMisCards() async {
     print('Getting Liked MisCard');
     var url = Uri.parse(
-        '${BaseRoute.domain}/api/likes/?ordering=-liked_at&user_id=$currentUserID');
+        '${BaseRoute.domain}/likes/?ordering=-liked_at&user_id=$currentUserID');
     try {
       http.Response response =
           await http.get(url, headers: {'Authorization': "token $token"});
@@ -179,7 +179,7 @@ class MisCardController extends GetxController {
   Future<void> getSavedMisCards() async {
     print('Getting Saved MisCard');
     var url = Uri.parse(
-        '${BaseRoute.domain}/api/saved_miscards/?user_id=$currentUserID');
+        '${BaseRoute.domain}/saved_miscards/?user_id=$currentUserID');
     try {
       http.Response response =
           await http.get(url, headers: {'Authorization': "token $token"});
@@ -209,7 +209,7 @@ class MisCardController extends GetxController {
   Future<void> getDraftMisCards() async {
     print('Getting Draft MisCard');
     var url = Uri.parse(
-        '${BaseRoute.domain}/api/users/$currentUserID/drafts/?ordering=-created_at');
+        '${BaseRoute.domain}/users/$currentUserID/drafts/?ordering=-created_at');
     try {
       http.Response response =
           await http.get(url, headers: {'Authorization': "token $token"});
@@ -231,7 +231,7 @@ class MisCardController extends GetxController {
   }
 
   Future<void> deleteMiscard({required int miscardID}) async {
-    Uri url = Uri.parse('${BaseRoute.domain}/api/miscards/$miscardID/');
+    Uri url = Uri.parse('${BaseRoute.domain}/miscards/$miscardID/');
 
     try {
       http.Response response = await http.delete(

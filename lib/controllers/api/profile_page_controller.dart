@@ -31,7 +31,7 @@ class ProfilePageController extends GetxController {
   List<MisCard> get profileMisCards => [..._profileMisCards];
 
   Future<void> getProfile({required int userID}) async {
-    Uri url = Uri.parse('${BaseRoute.domain}/api/users/$userID/profile/');
+    Uri url = Uri.parse('${BaseRoute.domain}/users/$userID/profile/');
     try {
       http.Response response =
           await http.get(url, headers: {'Authorization': "token $token"});
@@ -52,9 +52,9 @@ class ProfilePageController extends GetxController {
     _userLoading = true;
     Uri url;
     if (userID != null) {
-      url = Uri.parse('${BaseRoute.domain}/api/users/$userID');
+      url = Uri.parse('${BaseRoute.domain}/users/$userID');
     } else {
-      url = Uri.parse('${BaseRoute.domain}/api/currentuser/');
+      url = Uri.parse('${BaseRoute.domain}/currentuser/');
     }
     try {
       http.Response response =
@@ -93,7 +93,7 @@ class ProfilePageController extends GetxController {
       uID = currentUserID;
     }
     var url = Uri.parse(
-        '${BaseRoute.domain}/api/miscards/?ordering=-created_at&user_id=$uID');
+        '${BaseRoute.domain}/miscards/?ordering=-created_at&user_id=$uID');
 
     try {
       http.Response response =
@@ -118,7 +118,7 @@ class ProfilePageController extends GetxController {
   }
 
   Future<void> handleFollowButton(int uId) async {
-    var url = Uri.parse('${BaseRoute.domain}/api/followings/');
+    var url = Uri.parse('${BaseRoute.domain}/followings/');
     try {
       http.Response response = await http.post(
         url,
@@ -141,7 +141,7 @@ class ProfilePageController extends GetxController {
   Future<void> handleUnfollow(int uId) async {
     if (_followingObjectID != null) {
       var url =
-          Uri.parse('${BaseRoute.domain}/api/followings/$_followingObjectID/');
+          Uri.parse('${BaseRoute.domain}/followings/$_followingObjectID/');
       try {
         http.Response response = await http.delete(
           url,
@@ -161,7 +161,7 @@ class ProfilePageController extends GetxController {
   }
 
   Future<void> checkFollowingStatus(int id) async {
-    Uri url = Uri.parse('${BaseRoute.domain}/api/followings/?user_id=$id');
+    Uri url = Uri.parse('${BaseRoute.domain}/followings/?user_id=$id');
     try {
       http.Response response =
           await http.get(url, headers: {'Authorization': "token $token"});
