@@ -30,6 +30,8 @@ class MisCardLikesController extends GetxController {
       var data = json.decode(response.body);
       if (data['next'] != null) {
         _hasNextPage = true;
+      } else {
+        _hasNextPage = false;
       }
       data = data['results'] as List;
       // print(data);

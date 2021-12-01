@@ -4,9 +4,14 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_sym/controllers/api/base_route.dart';
 import 'package:project_sym/models/miscard.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MisCardController extends GetxController {
   static final _tokenBox = GetStorage();
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
+  bool _hasNextPage = false;
+  int _curPage = 1;
   bool _fromLike = false;
   bool _fromHome = false;
   bool _fromTrending = false;
@@ -47,17 +52,25 @@ class MisCardController extends GetxController {
 
   List<MisCard> get draftMiscards => [..._draftMisCards];
 
-  Future<void> getMisCards() async {
+  Future<void> getMisCards({bool fromLoading = false}) async {
     _selectedTopicIndex = -1;
+    if (!fromLoading) {
+      _curPage = 1;
+    }
     print('Getting MisCards');
-    var url =
-        Uri.parse('${BaseRoute.domain}/miscards/?ordering=-created_at');
+    var url = Uri.parse(
+        '${BaseRoute.domain}/miscards/?ordering=-created_at&page=$_curPage');
 
     try {
       http.Response response =
           await http.get(url, headers: {'Authorization': "token $token"});
       // print(response.body);
       var data = json.decode(response.body);
+      if (data['next'] != null) {
+        _hasNextPage = true;
+      }else{
+        _hasNextPage = false;
+      }
       data = data['results'] as List;
       // print(data);
       List<MisCard> temp = [];
@@ -75,7 +88,12 @@ class MisCardController extends GetxController {
         temp.add(mc);
       });
       // print(temp);
-      _miscards = temp;
+      if (fromLoading) {
+        _miscards.addAll(temp);
+      } else {
+        _miscards = temp;
+      }
+
       update();
     } catch (e) {
       print("e getMiscards");
@@ -178,8 +196,8 @@ class MisCardController extends GetxController {
 
   Future<void> getSavedMisCards() async {
     print('Getting Saved MisCard');
-    var url = Uri.parse(
-        '${BaseRoute.domain}/saved_miscards/?user_id=$currentUserID');
+    var url =
+        Uri.parse('${BaseRoute.domain}/saved_miscards/?user_id=$currentUserID');
     try {
       http.Response response =
           await http.get(url, headers: {'Authorization': "token $token"});
@@ -253,6 +271,21 @@ class MisCardController extends GetxController {
     } catch (e) {
       print("e Deleting MisCard");
       print(e);
+    }
+  }
+
+  Future<void> onRefresh() async {
+    await getMisCards();
+  }
+
+  Future<void> onLoading() async {
+    print('ONLoading');
+    if (_hasNextPage) {
+      ++_curPage;
+      await getMisCards(fromLoading: true);
+      refreshController.loadComplete();
+    } else {
+      refreshController.loadNoData();
     }
   }
 }
