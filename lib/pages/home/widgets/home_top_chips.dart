@@ -8,7 +8,8 @@ class HomeTopChips extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      color: Colors.amber[100],
       height: 35,
       width: MediaQuery.of(context).size.width - 5,
       child: ListView.builder(
@@ -24,8 +25,10 @@ class HomeTopChips extends StatelessWidget {
                   mc.allTopics[index].substring(1)),
               onPressed: () async {
                 if (mc.selectedTopicIndex == index) {
-                  await mc.getMisCards();
+                  mc.setTopicMode(false);
+                  // await mc.getMisCards(mc.pagingController.firstPageKey);
                 } else {
+                  mc.setTopicMode(true);
                   await mc.getTopicMisCards(
                       topic: mc.allTopics[index], i: index);
                 }

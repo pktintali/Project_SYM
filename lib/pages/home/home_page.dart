@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:project_sym/components/miscard_widget.dart';
 import 'package:project_sym/controllers/api/miscard_controller.dart';
 import 'package:project_sym/controllers/api/profile_page_controller.dart';
+import 'package:project_sym/models/miscard.dart';
 import 'package:project_sym/pages/home/widgets/home_top_chips.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:project_sym/pages/home/widgets/sliver_custom_header_delegate.dart';
+import 'package:project_sym/pages/tab/home_topbar.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
@@ -17,62 +20,62 @@ class HomePage extends StatelessWidget {
     return SafeArea(
       child: GetBuilder<MisCardController>(
         initState: (v) async {
-          await controller.getMisCards();
+          if (!controller.topicMode) {
+            controller.pagingController.addPageRequestListener(
+              (pageKey) {
+                controller.getMisCards(pageKey);
+              },
+            );
+          }
           if (profileController.currentUser == null) {
             await profileController.getUser();
           }
         },
         builder: (_) {
-          if (controller.miscards.isEmpty) {
+          if (!controller.topicMode &&
+              controller.pagingController.isBlank == true) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
-          return SmartRefresher(
-            enablePullDown: true,
-            enablePullUp: true,
-            header: const WaterDropHeader(),
-            footer: CustomFooter(
-              builder: (BuildContext context, LoadStatus? mode) {
-                Widget body;
-                if (mode == LoadStatus.idle) {
-                  body = const Text("pull up load");
-                } else if (mode == LoadStatus.loading) {
-                  body = const CupertinoActivityIndicator();
-                } else if (mode == LoadStatus.failed) {
-                  body = const Text("Load Failed!Click retry!");
-                } else if (mode == LoadStatus.canLoading) {
-                  body = const Text("release to load more");
-                } else {
-                  body = const Text("No more MisCards");
-                }
-                return SizedBox(
-                  height: 55.0,
-                  child: Center(child: body),
-                );
-              },
-            ),
-            controller: controller.refreshController,
-            onRefresh: () async {
-              await controller.onRefresh();
-            },
-            onLoading: () async {
-              await controller.onLoading();
-            },
-            child: ListView.builder(
-              itemCount: controller.miscards.length + 1,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 4),
-                    child: HomeTopChips(),
-                  );
-                }
-                return MisCardWidget(
-                  miscard: controller.miscards[index - 1],
-                );
-              },
-            ),
+          if (controller.topicMode &&
+              controller.topicPagingController.isBlank == true) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return CustomScrollView(
+            slivers: [
+              SliverPersistentHeader(
+                pinned: false,
+                floating: true,
+                delegate: SliverCustomHeaderDelegate(
+                  minHeight: 50,
+                  maxHeight: 50,
+                  child: const HomeTopBar(),
+                ),
+              ),
+              SliverPersistentHeader(
+                pinned: true,
+                floating: false,
+                delegate: SliverCustomHeaderDelegate(
+                  maxHeight: 37,
+                  minHeight: 37,
+                  child: HomeTopChips(),
+                ),
+              ),
+              SliverFillRemaining(
+                child: PagedListView<int, MisCard>(
+                  pagingController: controller.topicMode
+                      ? controller.topicPagingController
+                      : controller.pagingController,
+                  builderDelegate: PagedChildBuilderDelegate<MisCard>(
+                    itemBuilder: (context, item, index) =>
+                        MisCardWidget(miscard: item),
+                  ),
+                ),
+              ),
+            ],
           );
         },
       ),

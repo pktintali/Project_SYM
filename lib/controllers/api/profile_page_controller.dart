@@ -168,6 +168,9 @@ class ProfilePageController extends GetxController {
       // print(response.body);
       var data = json.decode(response.body);
       // print(data);
+      
+      //! This is the wrong method of getting no of followers
+      //? IF there are more than 10 folowers then it will not work
       _noOfFollowers = data['count'];
       if (_noOfFollowers != 0) {
         data = data['results'] as List;

@@ -43,7 +43,7 @@ class MisCardDetailsFooterIcons extends StatelessWidget {
                     }
                     if (mc.fromHome) {
                       if (mdc.initiallyLiked != mdc.isLikedByUser) {
-                        await mc.getMisCards();
+                        mc.pagingController.refresh();
                       }
                     }
                     if (mc.fromtrending) {
@@ -95,7 +95,7 @@ class MisCardDetailsFooterIcons extends StatelessWidget {
                 }
                 if (mc.fromHome) {
                   if (mdc.initiallyLiked != mdc.isLikedByUser) {
-                    await mc.getMisCards();
+                    mc.pagingController.refresh();
                   }
                 }
                 if (mc.fromtrending) {

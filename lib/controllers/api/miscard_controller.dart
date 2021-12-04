@@ -2,16 +2,19 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:project_sym/controllers/api/base_route.dart';
 import 'package:project_sym/models/miscard.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MisCardController extends GetxController {
   static final _tokenBox = GetStorage();
-  RefreshController refreshController =
-      RefreshController(initialRefresh: false);
+
+  final PagingController<int, MisCard> pagingController =
+      PagingController(firstPageKey: 1);
+  PagingController<int, MisCard> topicPagingController =
+      PagingController(firstPageKey: 1);
+
   bool _hasNextPage = false;
-  int _curPage = 1;
   bool _fromLike = false;
   bool _fromHome = false;
   bool _fromTrending = false;
@@ -19,14 +22,15 @@ class MisCardController extends GetxController {
   bool _reqLikeDone = false;
   bool _reqSavedDone = false;
   bool _reqDraftDone = false;
+  bool _topicMode = false;
   int _selectedTopicIndex = -1;
 
-  List<MisCard> _miscards = [];
+  // List<MisCard> _miscards = [];
   List<MisCard> _trendingMiscards = [];
   List<MisCard> _likedMiscards = [];
   List<MisCard> _savedMiscards = [];
   List<MisCard> _draftMisCards = [];
-  List<String> _allTopics = [];
+  final List<String> _allTopics = [];
 
   bool get fromLike => _fromLike;
   bool get fromHome => _fromHome;
@@ -35,6 +39,7 @@ class MisCardController extends GetxController {
   bool get reqLikeDone => _reqLikeDone;
   bool get reqSavedDone => _reqSavedDone;
   bool get reqDraftDone => _reqDraftDone;
+  bool get topicMode => _topicMode;
   int get selectedTopicIndex => _selectedTopicIndex;
 
   var token = _tokenBox.read('token');
@@ -42,7 +47,7 @@ class MisCardController extends GetxController {
 
   List<String> get allTopics => [..._allTopics];
 
-  List<MisCard> get miscards => [..._miscards];
+  // List<MisCard> get miscards => [..._miscards];
 
   List<MisCard> get trendingMiscards => [..._trendingMiscards];
 
@@ -52,14 +57,21 @@ class MisCardController extends GetxController {
 
   List<MisCard> get draftMiscards => [..._draftMisCards];
 
-  Future<void> getMisCards({bool fromLoading = false}) async {
-    _selectedTopicIndex = -1;
-    if (!fromLoading) {
-      _curPage = 1;
+  void setTopicMode(bool mode) {
+    if (mode == false) {
+      _selectedTopicIndex = -1;
+    } else {
+      topicPagingController = PagingController(firstPageKey: 1);
     }
+    _topicMode = mode;
+    update();
+  }
+
+  Future<void> getMisCards(int pageKey) async {
+    _selectedTopicIndex = -1;
     print('Getting MisCards');
     var url = Uri.parse(
-        '${BaseRoute.domain}/miscards/?ordering=-created_at&page=$_curPage');
+        '${BaseRoute.domain}/miscards/?ordering=-created_at&page=$pageKey');
 
     try {
       http.Response response =
@@ -68,13 +80,13 @@ class MisCardController extends GetxController {
       var data = json.decode(response.body);
       if (data['next'] != null) {
         _hasNextPage = true;
-      }else{
+      } else {
         _hasNextPage = false;
       }
       data = data['results'] as List;
       // print(data);
       List<MisCard> temp = [];
-      _allTopics = [];
+      // _allTopics = [];
       data.forEach((element) {
         MisCard mc = MisCard.fromMap(element);
         var ct = element['topics'];
@@ -88,12 +100,11 @@ class MisCardController extends GetxController {
         temp.add(mc);
       });
       // print(temp);
-      if (fromLoading) {
-        _miscards.addAll(temp);
+      if (_hasNextPage) {
+        pagingController.appendPage(temp, pageKey + 1);
       } else {
-        _miscards = temp;
+        pagingController.appendLastPage(temp);
       }
-
       update();
     } catch (e) {
       print("e getMiscards");
@@ -106,6 +117,7 @@ class MisCardController extends GetxController {
     _fromTrending = false;
   }
 
+  //!Implement Paging
   Future<void> getTopicMisCards({required String topic, required int i}) async {
     _selectedTopicIndex = i;
     print('Getting Topic MisCards');
@@ -124,8 +136,9 @@ class MisCardController extends GetxController {
         MisCard mc = MisCard.fromMap(element);
         temp.add(mc);
       });
-      _miscards = temp;
-      update();
+      // _miscards = temp;
+      topicPagingController.appendLastPage(temp);
+      // update();
     } catch (e) {
       print("e get Topic miscards");
       print(e);
@@ -263,7 +276,7 @@ class MisCardController extends GetxController {
       print(data);
       //Note: Remove getting homepage cards and trending page cards when large usr
       if (_fromHome) {
-        await getMisCards();
+        await getMisCards(0);
       }
       if (_fromTrending) {
         await getTrendingMisCards();
@@ -271,21 +284,6 @@ class MisCardController extends GetxController {
     } catch (e) {
       print("e Deleting MisCard");
       print(e);
-    }
-  }
-
-  Future<void> onRefresh() async {
-    await getMisCards();
-  }
-
-  Future<void> onLoading() async {
-    print('ONLoading');
-    if (_hasNextPage) {
-      ++_curPage;
-      await getMisCards(fromLoading: true);
-      refreshController.loadComplete();
-    } else {
-      refreshController.loadNoData();
     }
   }
 }

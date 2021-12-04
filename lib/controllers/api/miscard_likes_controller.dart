@@ -2,26 +2,21 @@ import 'dart:convert';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:project_sym/controllers/api/base_route.dart';
 import 'package:project_sym/models/user.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MisCardLikesController extends GetxController {
   static final _tokenBox = GetStorage();
   bool _hasNextPage = false;
-  int _curPage = 1;
-  List<User> _likedUsers = [];
-  RefreshController refreshController =
-      RefreshController(initialRefresh: false);
-
-  List<User> get likedUsers => [..._likedUsers];
+  final PagingController<int, User> pagingController =
+      PagingController(firstPageKey: 1);
   var token = _tokenBox.read('token');
 
-  Future<void> getMisCardLikes(int miscardID,
-      {bool fromLoading = false}) async {
+  Future<void> getMisCardLikes(int pageKey, {required int miscardID}) async {
     print('Getting MisCard Liked');
     var url = Uri.parse(
-        '${BaseRoute.domain}/miscards/$miscardID/likes/?page=$_curPage');
+        '${BaseRoute.domain}/miscards/$miscardID/likes/?page=$pageKey');
 
     try {
       http.Response response =
@@ -40,33 +35,15 @@ class MisCardLikesController extends GetxController {
         User mc = User.fromMap(element['user']);
         temp.add(mc);
       });
-      // print(temp);
-      if (fromLoading) {
-        _likedUsers.addAll(temp);
+      if (_hasNextPage) {
+        pagingController.appendPage(temp, pageKey + 1);
       } else {
-        _likedUsers = temp;
+        pagingController.appendLastPage(temp);
       }
-      refreshController.refreshCompleted();
-      update();
+      // update();
     } catch (e) {
       print("e get MisCard Likes");
-      refreshController.refreshFailed();
       print(e);
-    }
-  }
-
-  Future<void> onRefresh(miscardID) async {
-    await getMisCardLikes(miscardID);
-  }
-
-  Future<void> onLoading(miscardID) async {
-    print('ONLoading');
-    if (_hasNextPage) {
-      ++_curPage;
-      await getMisCardLikes(miscardID, fromLoading: true);
-      refreshController.loadComplete();
-    } else {
-      refreshController.loadNoData();
     }
   }
 }
