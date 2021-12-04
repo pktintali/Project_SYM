@@ -15,48 +15,60 @@ class EditProfile extends StatelessWidget {
         title: const Text('Edit Profile'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          GetBuilder<EditProfileController>(builder: (_) {
-            if (pec.pickedImage != null) {
-              return Image.file(pec.pickedImage!);
-            } else {
-              return const Center(
-                child: SizedBox(
-                  height: 200,
-                  width: 200,
-                  child: Placeholder(),
-                ),
-              );
-            }
-          }),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: OutlinedButton(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Icon(
-                      Icons.add_a_photo,
-                      color: Colors.green,
+          GetBuilder<EditProfileController>(
+            builder: (_) {
+              if (pec.pickedImage != null) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ClipOval(
+                    child: SizedBox(
+                      height: 200,
+                      width: 200,
+                      child: Image.file(pec.pickedImage!),
                     ),
-                    SizedBox(width: 5),
-                    Text(
-                      'Select Profile Pic',
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                );
+              } else {
+                return const Center(
+                  child: SizedBox(
+                    height: 200,
+                    width: 200,
+                    child: Icon(
+                      Icons.image,
+                      size: 200,
+                      color: Colors.grey,
+                    ),
+                  ),
+                );
+              }
+            },
+          ),
+          OutlinedButton(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(
+                    Icons.add_a_photo,
+                    color: Colors.green,
+                  ),
+                  SizedBox(width: 5),
+                  Text(
+                    'Select Profile Pic',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  )
+                ],
               ),
-              onPressed: () async {
-                await pec.pickFile();
-              },
             ),
+            onPressed: () async {
+              await pec.pickFile();
+            },
           ),
           GetBuilder<EditProfileController>(
             builder: (_) {
@@ -67,6 +79,30 @@ class EditProfile extends StatelessWidget {
               }
             },
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: TextField(
+              decoration: const InputDecoration(
+                labelText: 'Bio Link',
+              ),
+              onChanged: (v) {
+                pec.bioLink = v;
+              },
+            ),
+          ),
+          //Create text field for about
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: TextField(
+              decoration: const InputDecoration(
+                labelText: 'About',
+              ),
+              onChanged: (v) {
+                pec.about = v;
+              },
+            ),
+          ),
+          const SizedBox(height: 30),
           ButtonBar(
             children: [
               ElevatedButton(

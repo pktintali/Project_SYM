@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:project_sym/pages/profile/constants.dart';
+// import 'package:project_sym/pages/profile/constants.dart';
 
 class ProfileHeader extends StatelessWidget {
   final bool fromTab;
@@ -13,8 +13,8 @@ class ProfileHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Image.network(
-          Constants.headerURL,
+        Image.asset(
+          'assets/images/header.png',
           fit: BoxFit.fitWidth,
           scale: 1 / 2,
         ),

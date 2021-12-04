@@ -11,15 +11,16 @@ class EditProfileController extends GetxController {
   var token = _tokenBox.read('token');
   var currentUserID = _tokenBox.read('userID');
   bool _uploading = false;
-
+  String bioLink = '';
+  String about = '';
   File? _pickedFile;
   bool get uploading => _uploading;
   File? get pickedImage => _pickedFile;
 
   Future<void> pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowedExtensions: ['jpg', 'png'],
-    );
+        // allowedExtensions: ['jpg', 'png'],
+        );
     if (result != null) {
       _pickedFile = File(result.files.single.path!);
       print(_pickedFile!.path);
@@ -51,6 +52,12 @@ class EditProfileController extends GetxController {
             filename: _pickedFile!.path.split('/').last),
       );
       request.headers.addAll(headers);
+      if(about!=''){
+        request.fields['about'] = about;
+      }
+      if(bioLink!=''){
+        request.fields['bio_link'] = bioLink;
+      }
       // request.fields.addAll({"about": "test about"});
       var res = await request.send();
       print(res.headers);
