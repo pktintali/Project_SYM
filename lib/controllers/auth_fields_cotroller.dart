@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:project_sym/controllers/api/base_route.dart';
+
+import 'api/base_route.dart';
 
 class AuthFieldsController extends GetxController {
   String? _firstName;

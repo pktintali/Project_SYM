@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_sym/pages/welcome/widgets/corner_decorated_box.dart';
+
+import 'widgets/corner_decorated_box.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({Key? key}) : super(key: key);

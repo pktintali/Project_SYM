@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:project_sym/components/miscard_footer.dart';
-import 'package:project_sym/components/miscard_text.dart';
-import 'package:project_sym/components/miscard_title.dart';
-import 'package:project_sym/components/miscard_user_header.dart';
-import 'package:project_sym/models/miscard.dart';
-import 'package:project_sym/pages/miscard/miscard_adding_page.dart';
-import 'package:project_sym/pages/miscard/miscard_details.dart';
+
+import '../models/miscard.dart';
+import '../pages/miscard/miscard_adding_page.dart';
+import '../pages/miscard/miscard_details.dart';
+import 'miscard_footer.dart';
+import 'miscard_text.dart';
+import 'miscard_title.dart';
+import 'miscard_user_header.dart';
 
 class MisCardWidget extends StatelessWidget {
   final MisCard miscard;

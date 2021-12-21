@@ -1,11 +1,13 @@
 import 'dart:convert';
+
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:project_sym/controllers/api/base_route.dart';
-import 'package:project_sym/models/miscard.dart';
-import 'package:project_sym/models/profile.dart';
-import 'package:project_sym/models/user.dart';
+
+import '../../models/miscard.dart';
+import '../../models/profile.dart';
+import '../../models/user.dart';
+import 'base_route.dart';
 
 class ProfilePageController extends GetxController {
   static final _tokenBox = GetStorage();

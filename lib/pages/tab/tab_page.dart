@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_sym/controllers/tab_controller.dart';
-import 'package:project_sym/pages/home/home_page.dart';
-import 'package:project_sym/pages/library/library_page.dart';
-import 'package:project_sym/pages/miscard/miscard_adding_page.dart';
-import 'package:project_sym/pages/profile/profile_page.dart';
-import 'package:project_sym/pages/trending/trending_page.dart';
+
+import '../../controllers/tab_controller.dart';
+import '../home/home_page.dart';
+import '../library/library_page.dart';
+import '../miscard/miscard_adding_page.dart';
+import '../profile/profile_page.dart';
+import '../trending/trending_page.dart';
+import 'home_topbar.dart';
 
 class TabPage extends StatelessWidget {
   TabPage({Key? key}) : super(key: key);
@@ -17,6 +19,7 @@ class TabPage extends StatelessWidget {
     return GetBuilder<MyTabController>(
       builder: (_) {
         return Scaffold(
+          appBar: controller.getTab == 0 ? const HomeTopBar() : null,
           // floatingActionButtonLocation:FloatingActionButtonLocation.miniCenterDocked,
           floatingActionButton: FloatingActionButton(
             mini: true,

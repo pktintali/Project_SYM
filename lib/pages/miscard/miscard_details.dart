@@ -1,18 +1,19 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_sym/components/miscard_title.dart';
-import 'package:project_sym/components/miscard_user_header.dart';
-import 'package:project_sym/controllers/api/miscard_detail_controller.dart';
-import 'package:project_sym/controllers/api/profile_page_controller.dart';
-import 'package:project_sym/controllers/flipcard_details_controller.dart';
-import 'package:project_sym/models/miscard.dart';
-import 'package:project_sym/pages/miscard/miscard_comment.dart';
-import 'package:project_sym/pages/miscard/miscard_comment_writebox.dart';
-import 'package:project_sym/pages/miscard/widgets/miscard_back.dart';
-import 'package:project_sym/pages/miscard/widgets/miscard_details_footer.dart';
-import 'package:project_sym/pages/miscard/widgets/miscard_details_icons.dart';
-import 'package:project_sym/pages/miscard/widgets/miscard_front.dart';
+
+import '../../components/miscard_title.dart';
+import '../../components/miscard_user_header.dart';
+import '../../controllers/api/miscard_detail_controller.dart';
+import '../../controllers/api/profile_page_controller.dart';
+import '../../controllers/flipcard_details_controller.dart';
+import '../../models/miscard.dart';
+import 'miscard_comment.dart';
+import 'miscard_comment_writebox.dart';
+import 'widgets/miscard_back.dart';
+import 'widgets/miscard_details_footer.dart';
+import 'widgets/miscard_details_icons.dart';
+import 'widgets/miscard_front.dart';
 
 class MisCardDetails extends StatelessWidget {
   final MisCard miscard;

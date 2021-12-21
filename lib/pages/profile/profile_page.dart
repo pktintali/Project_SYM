@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_sym/components/miscard_widget.dart';
-import 'package:project_sym/controllers/api/profile_page_controller.dart';
-import 'package:project_sym/models/profile.dart';
-import 'package:project_sym/pages/profile/widgets/date_and_follow.dart';
-import 'package:project_sym/pages/profile/widgets/profile_about.dart';
-import 'package:project_sym/pages/profile/widgets/profile_achievments.dart';
-import 'package:project_sym/pages/profile/widgets/profile_followings.dart';
-import 'package:project_sym/pages/profile/widgets/profile_followers.dart';
-import 'package:project_sym/pages/profile/widgets/profile_header.dart';
-import 'package:project_sym/pages/profile/widgets/profile_id.dart';
-import 'package:project_sym/pages/profile/widgets/profile_link.dart';
-import 'package:project_sym/pages/profile/widgets/profile_name.dart';
-import 'package:project_sym/pages/profile/widgets/profile_pic.dart';
+
+import '../../components/miscard_widget.dart';
+import '../../controllers/api/profile_page_controller.dart';
+import '../../models/profile.dart';
+import 'widgets/date_and_follow.dart';
+import 'widgets/profile_about.dart';
+import 'widgets/profile_achievments.dart';
+import 'widgets/profile_followers.dart';
+import 'widgets/profile_followings.dart';
+import 'widgets/profile_header.dart';
+import 'widgets/profile_id.dart';
+import 'widgets/profile_link.dart';
+import 'widgets/profile_name.dart';
+import 'widgets/profile_pic.dart';
 
 class ProfilePage extends StatelessWidget {
   final int? userID;

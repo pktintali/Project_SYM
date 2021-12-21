@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_sym/models/profile.dart';
-import 'package:project_sym/pages/profile/widgets/achievment_chip.dart';
+
+import '../../../models/profile.dart';
+import 'achievment_chip.dart';
 
 class ProfileAchievments extends StatelessWidget {
   final Profile profile;

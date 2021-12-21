@@ -1,10 +1,12 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:project_sym/controllers/api/base_route.dart';
+import 'package:http/http.dart' as http;
+
+import 'base_route.dart';
 
 class EditProfileController extends GetxController {
   static final _tokenBox = GetStorage();

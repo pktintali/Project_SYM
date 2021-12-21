@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_sym/components/user_followings_list.dart';
+
+import '../../../components/user_followings_list.dart';
 
 class ProfileFollowers extends StatelessWidget {
   final int followersCount;

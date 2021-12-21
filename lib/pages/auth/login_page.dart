@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_sym/controllers/api/auth_controller.dart';
-import 'package:project_sym/controllers/auth_fields_cotroller.dart';
-import 'package:project_sym/pages/tab/tab_page.dart';
-import 'package:project_sym/pages/welcome/welcome_base.dart';
+
+import '../../controllers/api/auth_controller.dart';
+import '../../controllers/auth_fields_cotroller.dart';
+import '../tab/tab_page.dart';
+import '../welcome/welcome_base.dart';
 
 class LoginPage extends Welcome {
   LoginPage({Key? key}) : super(key: key);

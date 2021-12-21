@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:project_sym/pages/auth/login_page.dart';
-import 'package:project_sym/pages/auth/signup_page.dart';
-import 'package:project_sym/pages/welcome/welcome_base.dart';
+
+import '../auth/login_page.dart';
+import '../auth/signup_page.dart';
+import 'welcome_base.dart';
 
 class WelcomePage extends Welcome {
   const WelcomePage({Key? key}) : super(key: key);

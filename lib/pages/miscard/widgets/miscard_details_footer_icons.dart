@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_sym/components/miscard_likes_list.dart';
-import 'package:project_sym/controllers/api/miscard_controller.dart';
-import 'package:project_sym/controllers/api/miscard_detail_controller.dart';
-import 'package:project_sym/models/miscard.dart';
+
+import '../../../components/miscard_likes_list.dart';
+import '../../../controllers/api/miscard_controller.dart';
+import '../../../controllers/api/miscard_detail_controller.dart';
+import '../../../models/miscard.dart';
 
 class MisCardDetailsFooterIcons extends StatelessWidget {
   final MisCard miscard;

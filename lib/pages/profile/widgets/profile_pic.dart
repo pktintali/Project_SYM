@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_sym/controllers/api/base_route.dart';
-import 'package:project_sym/pages/profile/constants.dart';
+
+import '../../../controllers/api/base_route.dart';
+import '../constants.dart';
 
 class ProfilePic extends StatelessWidget {
   final String picURL;

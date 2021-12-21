@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:project_sym/pages/home/widgets/search_bar.dart';
+
+import '../home/widgets/search_bar.dart';
 
 class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeTopBar({Key? key}) : super(key: key);

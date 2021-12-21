@@ -1,14 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/route_manager.dart';
-import 'package:project_sym/controllers/api/miscard_controller.dart';
-import 'package:project_sym/controllers/api/profile_page_controller.dart';
-import 'package:project_sym/models/miscard.dart';
-import 'package:project_sym/models/user.dart';
-import 'package:project_sym/pages/miscard/miscard_adding_page.dart';
-import 'package:project_sym/pages/profile/profile_view.dart';
-import 'package:project_sym/pages/profile/widgets/profile_pic.dart';
+
+import '../controllers/api/miscard_controller.dart';
+import '../controllers/api/profile_page_controller.dart';
+import '../models/miscard.dart';
+import '../models/user.dart';
+import '../pages/miscard/miscard_adding_page.dart';
+import '../pages/profile/profile_view.dart';
+import '../pages/profile/widgets/profile_pic.dart';
 
 class MisCardUserHeader extends StatelessWidget {
   final String? timeStamp;

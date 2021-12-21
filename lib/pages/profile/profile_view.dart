@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_sym/pages/profile/profile_page.dart';
+
+import 'profile_page.dart';
 
 class ProfileView extends StatelessWidget {
   final int userID;

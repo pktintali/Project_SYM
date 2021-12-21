@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_sym/controllers/api/edit_profile_controller.dart';
-import 'package:project_sym/controllers/api/profile_page_controller.dart';
+
+import '../../controllers/api/edit_profile_controller.dart';
+import '../../controllers/api/profile_page_controller.dart';
 
 class EditProfile extends StatelessWidget {
   const EditProfile({Key? key}) : super(key: key);

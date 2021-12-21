@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_sym/controllers/api/profile_page_controller.dart';
-import 'package:project_sym/pages/profile/edit_profile.dart';
+
+import '../../../controllers/api/profile_page_controller.dart';
+import '../edit_profile.dart';
 
 class DateAndFollow extends StatelessWidget {
   final String dateJoined;

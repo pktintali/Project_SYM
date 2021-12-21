@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_sym/controllers/api/miscard_detail_controller.dart';
-import 'package:project_sym/pages/profile/widgets/profile_pic.dart';
+
+import '../../controllers/api/miscard_detail_controller.dart';
+import '../profile/widgets/profile_pic.dart';
 
 class MisCardCommentWriteBox extends StatelessWidget {
   final int miscardID;

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:project_sym/controllers/api/miscard_controller.dart';
-import 'package:project_sym/controllers/api/profile_page_controller.dart';
-import 'package:project_sym/controllers/tab_controller.dart';
-import 'package:project_sym/pages/library/drafts_miscard.dart';
-import 'package:project_sym/pages/library/liked_miscard.dart';
-import 'package:project_sym/pages/library/saved_miscard.dart';
-import 'package:project_sym/pages/welcome/welcome_page.dart';
+
+import '../../controllers/api/miscard_controller.dart';
+import '../../controllers/api/profile_page_controller.dart';
+import '../../controllers/tab_controller.dart';
+import '../welcome/welcome_page.dart';
+import 'drafts_miscard.dart';
+import 'liked_miscard.dart';
+import 'saved_miscard.dart';
 
 class LibraryPage extends StatelessWidget {
   LibraryPage({Key? key}) : super(key: key);

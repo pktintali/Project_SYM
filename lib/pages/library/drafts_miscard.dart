@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_sym/components/miscard_widget.dart';
-import 'package:project_sym/controllers/api/miscard_controller.dart';
+
+import '../../components/miscard_widget.dart';
+import '../../controllers/api/miscard_controller.dart';
 
 class DraftMisCard extends StatelessWidget {
   DraftMisCard({Key? key}) : super(key: key);

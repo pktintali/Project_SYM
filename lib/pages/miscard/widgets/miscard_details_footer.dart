@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_sym/controllers/flipcard_details_controller.dart';
+
+import '../../../controllers/flipcard_details_controller.dart';
 
 class MisCardDetailsFooter extends StatelessWidget {
   MisCardDetailsFooter({Key? key}) : super(key: key);

@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:project_sym/components/miscard_user_header.dart';
-import 'package:project_sym/controllers/api/miscard_likes_controller.dart';
-import 'package:project_sym/models/user.dart';
+
+import '../controllers/api/miscard_likes_controller.dart';
+import '../models/user.dart';
+import 'miscard_user_header.dart';
 
 class MisCardLikesList extends StatelessWidget {
   final int miscardID;

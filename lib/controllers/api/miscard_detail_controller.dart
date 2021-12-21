@@ -1,10 +1,12 @@
 import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:project_sym/controllers/api/base_route.dart';
-import 'package:project_sym/models/comment.dart';
 import 'package:http/http.dart' as http;
+
+import '../../models/comment.dart';
+import 'base_route.dart';
 
 class MisCardDetailController extends GetxController {
   static final _tokenBox = GetStorage();

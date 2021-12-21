@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_sym/models/miscard.dart';
-import 'package:project_sym/pages/miscard/widgets/miscard_details_footer_icons.dart';
+
+import '../../../models/miscard.dart';
+import 'miscard_details_footer_icons.dart';
 
 class MisCardDetailsIcons extends StatelessWidget {
   final MisCard miscard;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_sym/models/miscard.dart';
+
+import '../models/miscard.dart';
 
 class MisCardFooter extends StatelessWidget {
   final MisCard miscard;

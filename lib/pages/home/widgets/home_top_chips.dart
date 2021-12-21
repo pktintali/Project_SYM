@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_sym/controllers/api/miscard_controller.dart';
+
+import '../../../controllers/api/miscard_controller.dart';
 
 class HomeTopChips extends StatelessWidget {
   HomeTopChips({Key? key}) : super(key: key);
