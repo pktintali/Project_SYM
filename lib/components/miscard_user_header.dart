@@ -92,6 +92,7 @@ class MisCardUserHeader extends StatelessWidget {
               color: Colors.grey.shade600,
             ),
           ),
+          if(timeStamp!=null)
           InkWell(
             child: const Padding(
               padding: EdgeInsets.all(4.0),

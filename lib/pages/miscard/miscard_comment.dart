@@ -64,9 +64,9 @@ class MisCardcomment extends StatelessWidget {
                       const Spacer(),
                       Text(
                         humanTimeStamp,
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 13,
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.grey.shade600,
                         ),
                       )
                     ],
