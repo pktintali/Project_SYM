@@ -134,7 +134,7 @@ class MisCardAddingPage extends StatelessWidget {
                           fillColor:
                               MaterialStateProperty.all(Colors.green[800]),
                           onChanged: (v) {
-                            controller.toogleAllowComment();
+                            controller.toggleAllowComment();
                           },
                         );
                       },
@@ -225,22 +225,13 @@ class MisCardAddingPage extends StatelessWidget {
                           if (controller.title != '' &&
                               controller.mistake != '' &&
                               controller.lesson != '') {
-                            await controller
-                                .addMisCard(
-                                  title: controller.title,
-                                  mistake: controller.mistake,
-                                  lesson: controller.lesson,
-                                  miscardID:
-                                      miscard != null ? miscard!.id : null,
-                                )
-                                .then(
-                                  (value) => Get.defaultDialog(
-                                    middleText: 'MisCard Created Successfully',
-                                    onConfirm: () {
-                                      Get.back();
-                                    },
-                                  ),
-                                );
+                            await controller.addMisCard(
+                              title: controller.title,
+                              mistake: controller.mistake,
+                              lesson: controller.lesson,
+                              miscardID: miscard != null ? miscard!.id : null,
+                            );
+
                             if (miscard != null) {
                               await mcc.getDraftMisCards();
                             }

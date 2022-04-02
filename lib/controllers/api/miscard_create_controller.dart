@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:project_sym/utils/constants.dart';
 
 import 'base_route.dart';
 
@@ -11,6 +11,7 @@ class MisCardCreateController extends GetxController {
   String _title = '';
   String _mistake = '';
   String _lesson = '';
+  String _restrictedWord = '';
   bool _allowComment = true;
 
   set setTitle(t) => _title = t;
@@ -26,7 +27,7 @@ class MisCardCreateController extends GetxController {
   var token = _tokenBox.read('token');
   var currentUserID = _tokenBox.read('userID');
 
-  void toogleAllowComment() {
+  void toggleAllowComment() {
     _allowComment = !_allowComment;
     update();
   }
@@ -38,28 +39,45 @@ class MisCardCreateController extends GetxController {
     int? miscardID,
   }) async {
     var url = Uri.parse('${BaseRoute.domain}/miscards/');
-    try {
-      http.Response response = await http.post(
-        url,
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "token $token"
+    if (isRestricted()) {
+      await Get.defaultDialog(
+        middleText:
+            '["$_restrictedWord"] is restricted word, remove it to create MisCard',
+        onConfirm: () {
+          Get.back();
         },
-        body: json.encode({
-          "title": title,
-          "mistake": mistake,
-          "lesson": lesson,
-          "comment_allowed": _allowComment
-        }),
       );
-      var data = json.decode(response.body) as Map;
-      if (miscardID != null) {
-        await deleteMiscard(miscardID);
+    } else {
+      try {
+        http.Response response = await http.post(
+          url,
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "token $token"
+          },
+          body: json.encode({
+            "title": title,
+            "mistake": mistake,
+            "lesson": lesson,
+            "comment_allowed": _allowComment
+          }),
+        );
+        Get.defaultDialog(
+          middleText: 'MisCard Created Successfully',
+          onConfirm: () {
+            Get.back();
+          },
+        );
+
+        var data = json.decode(response.body) as Map;
+        if (miscardID != null) {
+          await deleteMiscard(miscardID);
+        }
+        print(data);
+      } catch (e) {
+        print("e Adding Miscard");
+        print(e);
       }
-      print(data);
-    } catch (e) {
-      print("e Adding Miscard");
-      print(e);
     }
   }
 
@@ -152,8 +170,8 @@ class MisCardCreateController extends GetxController {
   }
 
   Future<void> deleteMiscard(int draftID) async {
-    Uri url = Uri.parse(
-        '${BaseRoute.domain}/users/$currentUserID/drafts/$draftID/');
+    Uri url =
+        Uri.parse('${BaseRoute.domain}/users/$currentUserID/drafts/$draftID/');
 
     try {
       http.Response response = await http.delete(
@@ -169,5 +187,18 @@ class MisCardCreateController extends GetxController {
       print("e Deleting Draft/MisCard");
       print(e);
     }
+  }
+
+  bool isRestricted() {
+    List<String> words = _mistake.split(" ");
+    words.addAll(_lesson.split(" "));
+    words.addAll(_title.split(" "));
+    for (String w in words) {
+      if (Constants.restrictedWords.contains(w.toLowerCase())) {
+        _restrictedWord = w;
+        return true;
+      }
+    }
+    return false;
   }
 }
